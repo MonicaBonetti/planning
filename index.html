@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mon planning de la semaine — monica-bonetti.ch</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#f5f0e8;display:flex;flex-direction:column;align-items:center;padding:20px;gap:16px}
+.no-print{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btn-print{background:#cd764b;color:white;border:none;padding:10px 28px;border-radius:20px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(205,118,75,0.3)}
+.btn-print:hover{background:#b85c33}
+.hint{font-family:'Nunito',sans-serif;color:#aaa;font-size:9px;text-align:center}
+.page{width:210mm;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.12);padding:9mm 10mm 8mm 10mm;display:flex;flex-direction:column;gap:5mm}
+.titre-main{font-family:'Baloo 2',cursive;font-size:20pt;font-weight:800;line-height:1.1}
+.titre-noir{color:#3a3228}
+.titre-terra{color:#cd764b}
+.section-label{font-size:7.5pt;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+table.tbl{width:100%;border-collapse:separate;border-spacing:2px}
+table.tbl th{padding:7px 5px;font-family:'Baloo 2',cursive;font-size:9.5pt;font-weight:800;border-radius:7px;text-align:center}
+.th-blank{background:transparent;width:44px}
+.th-k1{background:#FFEDED;color:#8B1A1A}
+.th-k2{background:#E8F8EE;color:#1A5C2E}
+.th-k3{background:#E8EEFF;color:#1A2E5C}
+table.tbl td{vertical-align:top;padding:2px}
+.jour-lbl{padding:5px 8px!important;border-radius:7px;vertical-align:middle!important;font-family:'Baloo 2',cursive;font-size:9pt;font-weight:800;color:#3a3228;background:#ffeecf;white-space:nowrap;text-align:center}
+.kid-name{border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:9pt;font-weight:700;color:inherit;width:100%;outline:none;border-bottom:1px dashed currentColor;text-align:center;display:block}
+.kid-name::placeholder{opacity:0.5;font-size:8pt}
+.drop-cell{min-height:60px;border-radius:7px;border:1.5px dashed;display:flex;flex-wrap:wrap;gap:3px;padding:5px;align-content:flex-start;font-size:20pt;line-height:1;transition:opacity 0.15s}
+.dc-k1{background:#fff5f5;border-color:#f5b8b8}
+.dc-k2{background:#f5fff8;border-color:#b8e8c8}
+.dc-k3{background:#f5f7ff;border-color:#b8c8f5}
+.chip{cursor:pointer;padding:1px;border-radius:4px;transition:transform 0.1s}
+.chip:hover{transform:scale(1.15)}
+.bank-section{background:#faf6f0;border:1.5px dashed #cd764b;border-radius:10px;padding:7px}
+.bank-title{font-size:7.5pt;font-weight:800;color:#cd764b;margin-bottom:6px;text-align:center}
+.bank-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.bank-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:white;border:1px solid #f0e8da;border-radius:7px;padding:5px 6px;cursor:grab;min-width:42px;user-select:none}
+.bank-item:active{cursor:grabbing}
+.bank-item .e{font-size:18pt;line-height:1}
+.bank-item .lbl{font-size:5pt;color:#999;font-weight:700;text-align:center;line-height:1.2}
+.sep{border:none;border-top:2px dashed #e8ddd0;margin:0}
+.frise{display:flex;align-items:flex-start;position:relative;gap:0}
+.frise::before{content:'';position:absolute;top:30px;left:24px;right:24px;height:3px;background:linear-gradient(90deg,#cd764b,#ffeecf,#cd764b,#ffeecf,#cd764b,#ffeecf,#cd764b,#ffeecf,#cd764b);border-radius:4px;z-index:0}
+.etape{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1;padding:1px;cursor:grab;user-select:none}
+.etape:active{cursor:grabbing}
+.bubble{width:54px;height:54px;border-radius:50%;background:#faf6f0;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;overflow:hidden;outline:3px solid transparent;transition:outline 0.15s}
+.num-badge{position:absolute;top:-2px;right:calc(50% - 30px);background:#cd764b;color:white;width:14px;height:14px;border-radius:50%;font-size:7pt;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive}
+.etape-lbl{font-size:6pt;font-weight:700;color:#aaa;text-align:center;margin-top:4px;line-height:1.25;max-width:54px}
+.footer{text-align:center;font-size:7.5pt;color:#ccc;border-top:1px solid #eee;padding-top:5px}
+.footer a{color:#cd764b;text-decoration:none;font-weight:800}
+@media print{
+  body{background:white;padding:0}
+  .no-print{display:none!important}
+  .page{width:100%;box-shadow:none;border-radius:0;padding:8mm 10mm}
+  @page{size:A4 portrait;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="btn-print" onclick="window.print()">&#128438; Imprimer en A4</button>
+  <span class="hint">Chrome &#8594; Ctrl+P &#8594; A4 portrait &#8594; Marges : aucune</span>
+</div>
+
+<div class="page">
+
+  <div class="titre-main"><span class="titre-noir">Mon planning</span> <span class="titre-terra">de la semaine</span></div>
+
+  <div>
+    <div class="section-label">Ce que j'emmène cette semaine</div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th class="th-blank"></th>
+          <th class="th-k1"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+          <th class="th-k2"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+          <th class="th-k3"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="jour-lbl">LUN</td>
+          <td><div class="drop-cell dc-k1"></div></td>
+          <td><div class="drop-cell dc-k2"></div></td>
+          <td><div class="drop-cell dc-k3"></div></td>
+        </tr>
+        <tr>
+          <td class="jour-lbl">MAR</td>
+          <td><div class="drop-cell dc-k1"></div></td>
+          <td><div class="drop-cell dc-k2"></div></td>
+          <td><div class="drop-cell dc-k3"></div></td>
+        </tr>
+        <tr>
+          <td class="jour-lbl">MER</td>
+          <td><div class="drop-cell dc-k1"></div></td>
+          <td><div class="drop-cell dc-k2"></div></td>
+          <td><div class="drop-cell dc-k3"></div></td>
+        </tr>
+        <tr>
+          <td class="jour-lbl">JEU</td>
+          <td><div class="drop-cell dc-k1"></div></td>
+          <td><div class="drop-cell dc-k2"></div></td>
+          <td><div class="drop-cell dc-k3"></div></td>
+        </tr>
+        <tr>
+          <td class="jour-lbl">VEN</td>
+          <td><div class="drop-cell dc-k1"></div></td>
+          <td><div class="drop-cell dc-k2"></div></td>
+          <td><div class="drop-cell dc-k3"></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bank-section">
+    <div class="bank-title">Glisse un emoji dans la case du bon jour &#8212; clic sur un emoji dans une case pour le retirer</div>
+    <div class="bank-grid" id="bank"></div>
+  </div>
+
+  <hr class="sep">
+
+  <div>
+    <div class="section-label">Ma routine du matin &#8212; glisse pour changer l'ordre</div>
+    <div class="frise" id="frise"></div>
+  </div>
+
+  <div class="footer"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></div>
+
+</div>
+
+<script>
+const EMOJIS=[
+  {e:'\u{1F964}',l:'Gourde'},{e:'\u26BD',l:'Sac sport'},{e:'\u{1F96A}',l:'Lunch box'},
+  {e:'\u{1F4DA}',l:'Cahiers'},{e:'\u{1F3A8}',l:'Art/Craft'},{e:'\u{1F3B5}',l:'Musique'},
+  {e:'\u{1F3CA}',l:'Piscine'},{e:'\u{1F48A}',l:'M\u00e9dic.'},{e:'\u{1F4DD}',l:'Mot sign\u00e9'},
+  {e:'\u{1F93B}',l:'Gym'},{e:'\u{1F3AD}',l:'Th\u00e9\u00e2tre'},{e:'\u{1F3B8}',l:'Guitare'},
+];
+
+const SVG_BONNET_CASQ='<svg width="54" height="40" viewBox="0 0 54 40" xmlns="http://www.w3.org/2000/svg"><ellipse cx="14" cy="34" rx="11" ry="4.5" fill="#cd764b"/><rect x="3" y="29" width="22" height="6" rx="3" fill="#b85c33"/><ellipse cx="14" cy="27" rx="10" ry="9" fill="#cd764b"/><circle cx="14" cy="9" r="5.5" fill="#ffeecf" stroke="#cd764b" stroke-width="1.2"/><line x1="4" y1="29" x2="24" y2="29" stroke="#b85c33" stroke-width="1.2" stroke-dasharray="2,2"/><line x1="27" y1="10" x2="27" y2="39" stroke="#e8ddd0" stroke-width="1.5" stroke-dasharray="3,2"/><ellipse cx="41" cy="27" rx="12" ry="7.5" fill="#49ada4"/><ellipse cx="41" cy="20" rx="9.5" ry="8" fill="#49ada4"/><rect x="29" y="24" width="24" height="5" rx="2.5" fill="#357f7b"/><path d="M29 27 Q24 28 26 31 Q32 33 37 29" fill="#ffeecf" stroke="#357f7b" stroke-width="0.8"/><rect x="37" y="15" width="8" height="5" rx="2" fill="#357f7b" opacity="0.4"/></svg>';
+
+const ROUTINE=[
+  {e:'\u{1F963}',l:'D\u00e9jeuner',svg:null},
+  {e:'\u{1F34E}',l:'Snack 10h',svg:null},
+  {e:'\u{1F6BD}',l:'Toilettes',svg:null},
+  {e:'\u{1F455}',l:"S'habiller",svg:null},
+  {e:'\u{1FAA5}',l:'Dents',svg:null},
+  {e:'\u{1F9E5}',l:'Veste',svg:null},
+  {e:'\u{1F45F}',l:'Chaussures',svg:null},
+  {e:null,l:'Bonnet / casquette',svg:SVG_BONNET_CASQ},
+  {e:'\u{1F392}',l:'Sac pr\u00eat !',svg:null},
+];
+
+let dragEmoji=null, dragSrc=null;
+
+const bank=document.getElementById('bank');
+EMOJIS.forEach(({e,l})=>{
+  const el=document.createElement('div');
+  el.className='bank-item'; el.draggable=true;
+  el.innerHTML='<span class="e">'+e+'</span><span class="lbl">'+l+'</span>';
+  el.addEventListener('dragstart',function(ev){
+    dragEmoji=e; dragSrc=null;
+    ev.dataTransfer.setData('text/plain',e);
+    ev.dataTransfer.effectAllowed='copy';
+  });
+  bank.appendChild(el);
+});
+
+document.querySelectorAll('.drop-cell').forEach(function(cell){
+  cell.addEventListener('dragover',function(ev){ev.preventDefault();cell.style.opacity='0.7';});
+  cell.addEventListener('dragleave',function(){cell.style.opacity='';});
+  cell.addEventListener('drop',function(ev){
+    ev.preventDefault(); cell.style.opacity='';
+    var emoji=ev.dataTransfer.getData('text/plain')||dragEmoji;
+    if(emoji&&dragSrc===null){
+      var chip=document.createElement('span');
+      chip.className='chip'; chip.textContent=emoji;
+      chip.title='Clic pour retirer';
+      chip.addEventListener('click',function(){chip.remove();});
+      cell.appendChild(chip);
+    }
+    dragEmoji=null;
+  });
+});
+
+var frise=document.getElementById('frise');
+var routineOrder=ROUTINE.slice();
+
+function renderFrise(){
+  frise.innerHTML='';
+  routineOrder.forEach(function(item,i){
+    var el=document.createElement('div');
+    el.className='etape'; el.draggable=true;
+    var inner=item.svg?item.svg:'<span style="font-size:22pt;line-height:1">'+item.e+'</span>';
+    el.innerHTML='<div style="position:relative"><div class="bubble">'+inner+'</div><div class="num-badge">'+(i+1)+'</div></div><div class="etape-lbl">'+item.l+'</div>';
+    el.addEventListener('dragstart',function(ev){
+      dragSrc=i; dragEmoji=null;
+      el.style.opacity='0.3';
+      ev.dataTransfer.setData('text/plain','etape');
+      ev.dataTransfer.effectAllowed='move';
+    });
+    el.addEventListener('dragend',function(){el.style.opacity='';});
+    el.addEventListener('dragover',function(ev){
+      ev.preventDefault();
+      el.querySelector('.bubble').style.outline='3px solid #cd764b';
+    });
+    el.addEventListener('dragleave',function(){
+      el.querySelector('.bubble').style.outline='';
+    });
+    el.addEventListener('drop',function(ev){
+      ev.preventDefault();
+      el.querySelector('.bubble').style.outline='';
+      if(dragSrc!==null&&dragSrc!==i){
+        var tmp=routineOrder[dragSrc];
+        routineOrder.splice(dragSrc,1);
+        routineOrder.splice(i,0,tmp);
+        renderFrise();
+      }
+      dragSrc=null; dragEmoji=null;
+    });
+    frise.appendChild(el);
+  });
+}
+renderFrise();
+</script>
+</body>
+</html>
