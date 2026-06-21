@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon cadre estival — monica-bonetti.ch</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #cd764b;
+    --teal: #49ada4;
+    --creme: #ffeecf;
+    --or: #c88d25;
+    --fond: #faf6f0;
+    --dark: #4a2e1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--fond);
+    color: var(--dark);
+    padding: 24px 16px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--dark);
+  }
+  .header h1 em { font-style: italic; color: var(--terracotta); }
+  .header p {
+    font-size: 1rem;
+    color: #9b6c48;
+    margin-top: 8px;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+  .btn-print {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--terracotta);
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid var(--terracotta);
+    border-radius: 20px;
+    padding: 4px 14px;
+    transition: all 0.2s;
+    background: none;
+    font-family: 'Nunito', sans-serif;
+  }
+  .btn-print:hover { background: var(--terracotta); color: white; }
+
+  /* TABLEAU */
+  .table-wrap {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    overflow-x: auto;
+  }
+
+  table.grille {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+
+  table.grille th {
+    background: var(--terracotta);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px 4px;
+    text-align: center;
+  }
+  table.grille th.col-heure {
+    background: var(--dark);
+    width: 52px;
+    font-size: 0.65rem;
+  }
+
+  table.grille td {
+    border: 1px solid #e0d5c8;
+    height: 44px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.35rem;
+    cursor: pointer;
+    transition: background 0.12s;
+    position: relative;
+  }
+  table.grille td:hover { background: #f0e8de; }
+  table.grille td.heure {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    background: var(--fond);
+    cursor: default;
+    white-space: nowrap;
+    padding: 0 4px;
+  }
+  table.grille td.heure:hover { background: var(--fond); }
+
+
+
+  /* légende bandes */
+  .legende { display: none; }
+  .dot { display: none; }
+
+  /* PALETTE EMOJI */
+  .palette-wrap {
+    max-width: 900px;
+    margin: 0 auto 24px;
+  }
+  .palette-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--dark);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .palette-title em { color: var(--terracotta); font-style: italic; }
+  .palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .e-btn {
+    font-size: 1.5rem;
+    width: 68px;
+    height: 72px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    box-shadow: 0 1px 4px rgba(74,46,26,0.09);
+    transition: all 0.15s;
+  }
+  .e-btn:hover { transform: scale(1.08); border-color: var(--terracotta); }
+  .e-btn.active { border-color: var(--terracotta); background: var(--creme); box-shadow: 0 0 0 3px rgba(205,118,75,0.2); }
+  .e-btn .e-label {
+    display: block;
+    font-size: 0.58rem;
+    font-family: 'Nunito', sans-serif;
+    color: var(--dark);
+    opacity: 0.65;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 62px;
+  }
+
+  .palette-section {
+    margin-bottom: 20px;
+  }
+  .palette-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dark);
+    opacity: 0.45;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  /* MON SOIR À MOI */
+  .maman-box {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    background: var(--creme);
+    border-radius: 12px;
+    padding: 18px 22px;
+    border-left: 4px solid var(--or);
+  }
+  .maman-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--or);
+    margin-bottom: 14px;
+  }
+  .maman-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .maman-row:last-child { margin-bottom: 0; }
+  .maman-label {
+    font-size: 0.73rem;
+    font-weight: 700;
+    color: var(--dark);
+    width: 110px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .maman-input {
+    flex: 1;
+    border: 1.5px solid #e8ddd0;
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    color: var(--dark);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .maman-input:focus { border-color: var(--or); }
+  .maman-input::placeholder { color: #b0a090; font-style: italic; }
+
+  /* NOTE ÉCRAN */
+  .ecran-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ecran-note {
+    font-size: 0.78rem;
+    color: #9b6c48;
+    font-style: italic;
+    max-width: 220px;
+    line-height: 1.4;
+  }
+
+  /* HINT */
+  .hint {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--dark);
+    opacity: 0.45;
+    margin-top: -16px;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  .footer-phrase {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--dark);
+    opacity: 0.45;
+    margin-top: 20px;
+  }
+
+  /* ═══════ IMPRESSION ═══════ */
+  @media print {
+    body { background: white; padding: 0; font-size: 9pt; }
+    .btn-print, .palette-wrap, .hint, .legende { display: none !important; }
+    .header { margin-bottom: 5mm; }
+    .header h1 { font-size: 15pt; }
+    .header p { font-size: 7pt; }
+    .table-wrap { margin-bottom: 5mm; }
+    table.grille th { font-size: 6.5pt; padding: 4pt 2pt; }
+    table.grille td { height: 22pt; font-size: 1rem; }
+    table.grille td.heure { font-size: 6pt; }
+    .maman-box { padding: 6pt 10pt; margin-bottom: 5mm; }
+    .maman-box h2 { font-size: 9pt; margin-bottom: 6pt; }
+    .maman-label { font-size: 6.5pt; }
+    .maman-input { font-size: 7.5pt; border: none; border-bottom: 1px solid #ccc; border-radius: 0; padding: 2pt 0; }
+    .footer-phrase { font-size: 7pt; margin-top: 4mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Mon cadre <em>estival</em></h1>
+  <p>Des activités fun dehors et du calme à la maison.<br>Le but du planning : normaliser le calme et l'ennui à la maison<br>(Hé oui, maman ne se transforme pas en clown éduc pendant l'été, sorry!)</p>
+  <button class="btn-print" onclick="window.print()">🖶 Imprimer en A4</button>
+</div>
+
+<!-- TABLEAU -->
+<div class="table-wrap">
+  <table class="grille">
+    <thead>
+      <tr>
+        <th class="col-heure">Heure</th>
+        <th>Lun</th><th>Mar</th><th>Mer</th><th>Jeu</th><th>Ven</th><th>Sam</th><th>Dim</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+
+
+<!-- PALETTE -->
+<div class="palette-wrap">
+  <p class="palette-title">Clique sur un emoji, puis sur la bonne case. Reclique sur la case pour l'effacer.</p>
+
+  <div class="palette-section">
+    <p class="palette-section-label">☀️ Matin & routine</p>
+    <div class="palette" id="palette">
+      <button class="e-btn" data-emoji="🤫"><span class="e-label">silence</span></button>
+      <button class="e-btn" data-emoji="😴"><span class="e-label">grasse mat'</span></button>
+      <button class="e-btn" data-emoji="🥣"><span class="e-label">petit-déj</span></button>
+      <button class="e-btn" data-emoji="☕"><span class="e-label">café maman</span></button>
+      <button class="e-btn" data-emoji="🚿"><span class="e-label">douche</span></button>
+      <button class="e-btn" data-emoji="🧘"><span class="e-label">calme</span></button>
+    </div>
+  </div>
+
+  <div class="palette-section" style="margin-top:22px">
+    <p class="palette-section-label">🎨 Activités calmes</p>
+    <div class="palette">
+      <button class="e-btn" data-emoji="📖"><span class="e-label">livre</span></button>
+      <button class="e-btn" data-emoji="🎧"><span class="e-label">boîte à histoires</span></button>
+      <button class="e-btn" data-emoji="🧩"><span class="e-label">puzzle</span></button>
+      <button class="e-btn" data-emoji="🎨"><span class="e-label">dessin</span></button>
+      <button class="e-btn" data-emoji="✏️"><span class="e-label">coloriage</span></button>
+      <button class="e-btn" data-emoji="🏗️"><span class="e-label">lego</span></button>
+      <button class="e-btn" data-emoji="🪆"><span class="e-label">figurines</span></button>
+      <button class="e-btn" data-emoji="🎲"><span class="e-label">jeu de société</span></button>
+      <button class="e-btn" data-emoji="🪡"><span class="e-label">perles / couture</span></button>
+      <button class="e-btn" data-emoji="🧸"><span class="e-label">jeu libre</span></button>
+    </div>
+  </div>
+
+  <div class="palette-section" style="margin-top:22px">
+    <p class="palette-section-label">🛋️ Temps calme après le repas</p>
+    <div class="palette">
+      <button class="e-btn" data-emoji="😴"><span class="e-label">sieste</span></button>
+      <button class="e-btn" data-emoji="📖"><span class="e-label">lecture</span></button>
+      <div class="ecran-row">
+        <button class="e-btn" data-emoji="📱"><span class="e-label">écran</span></button>
+        <p class="ecran-note">1h d'écran par jour (en vacance c'est peut-être pas si catastrophique que ça)</p>
+      </div>
+  </div>
+
+  <div class="palette-section" style="margin-top:22px">
+    <p class="palette-section-label">🌙 Soirs</p>
+    <div class="palette">
+      <button class="e-btn" data-emoji="🎉"><span class="e-label">soir foufou</span></button>
+      <button class="e-btn" data-emoji="🍿"><span class="e-label">popcorn</span></button>
+      <button class="e-btn" data-emoji="🎲"><span class="e-label">jeu</span></button>
+      <button class="e-btn" data-emoji="📺"><span class="e-label">TV</span></button>
+      <button class="e-btn" data-emoji="📖"><span class="e-label">lecture</span></button>
+      <button class="e-btn" data-emoji="🌟"><span class="e-label">soir maman</span></button>
+      <button class="e-btn" data-emoji="🧺"><span class="e-label">pique-nique</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- MON SOIR À MOI -->
+<div class="maman-box">
+  <h2>🌟 Mon soir à moi — 1× par semaine</h2>
+  <div class="maman-row">
+    <span class="maman-label">Quel soir</span>
+    <input class="maman-input" type="text" placeholder="ex : le mercredi soir">
+  </div>
+  <div class="maman-row">
+    <span class="maman-label">Je fais</span>
+    <input class="maman-input" type="text" placeholder="ex : massage, sortie amies, bain seule, lecture">
+  </div>
+  <div class="maman-row">
+    <span class="maman-label">Qui prend le relais</span>
+    <input class="maman-input" type="text" placeholder="ex : mon +1, mamie, voisine">
+  </div>
+</div>
+
+<p class="footer-phrase">Faire moins ne fait pas de toi une mauvaise mère.</p>
+
+<script>
+// Heures 7h → 21h
+const heures = [];
+for (let h = 7; h <= 21; h++) heures.push(`${h}h`);
+
+// Construire le tableau
+const tbody = document.getElementById('tbody');
+const cellData = {};
+
+heures.forEach((label, hi) => {
+  const tr = document.createElement('tr');
+  let html = `<td class="heure">${label}</td>`;
+  for (let d = 0; d < 7; d++) {
+    const key = `${hi}-${d}`;
+    cellData[key] = null;
+    html += `<td id="c-${key}" onclick="place(${hi},${d})"></td>`;
+  }
+  tr.innerHTML = html;
+  tbody.appendChild(tr);
+});
+
+// Emoji actif
+let activeEmoji = null;
+let activeBtn   = null;
+
+// Afficher les emojis dans les boutons
+document.querySelectorAll('.e-btn').forEach(btn => {
+  const label = btn.querySelector('.e-label');
+  const labelText = label ? label.textContent : '';
+  btn.textContent = btn.dataset.emoji;
+  if (label) {
+    label.textContent = labelText;
+    btn.appendChild(label);
+  }
+});
+
+// Palette — délégation sur tous les .e-btn
+document.querySelectorAll('.e-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (activeBtn) activeBtn.classList.remove('active');
+    if (activeBtn === btn) { activeBtn = null; activeEmoji = null; return; }
+    activeBtn = btn;
+    activeEmoji = btn.dataset.emoji;
+    btn.classList.add('active');
+  });
+});
+
+function place(hi, d) {
+  const key = `${hi}-${d}`;
+  const cell = document.getElementById(`c-${key}`);
+  if (cellData[key]) {
+    // Effacer
+    cellData[key] = null;
+    cell.textContent = '';
+  } else if (activeEmoji) {
+    cellData[key] = activeEmoji;
+    cell.textContent = activeEmoji;
+  }
+}
+</script>
+</body>
+</html>
