@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Règles de Vie — Famille</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #cd764b;
+    --teal: #49ada4;
+    --gold: #c88d25;
+    --cream: #ffeecf;
+    --cream-light: #faf6f0;
+    --brown: #4a2e1a;
+    --col1-bg: #f9ede3;
+    --col2-bg: #e6f4f3;
+    --col3-bg: #fdf3dc;
+    --col1-border: #cd764b;
+    --col2-border: #49ada4;
+    --col3-border: #c88d25;
+    --text-dark: #4a2e1a;
+    --text-mid: #7a5c3e;
+    --text-light: #b09070;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream-light);
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-dark);
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page {
+    width: 297mm;
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px 32px 20px;
+    box-shadow: 0 6px 36px rgba(74,46,26,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    border-bottom: 2px solid var(--cream);
+    padding-bottom: 14px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--brown);
+    line-height: 1.1;
+  }
+  .header h1 em {
+    color: var(--terracotta);
+    font-style: italic;
+  }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 100px 100px 100px;
+    gap: 10px;
+  }
+
+  .col-label-empty { }
+
+  .col-header {
+    border-radius: 12px;
+    padding: 10px 8px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .col-header.c1 { background: var(--col1-bg); border: 2px solid var(--col1-border); }
+  .col-header.c2 { background: var(--col2-bg); border: 2px solid var(--col2-border); }
+  .col-header.c3 { background: var(--col3-bg); border: 2px solid var(--col3-border); }
+
+  .col-avatars { display: flex; gap: 6px; font-size: 1.5rem; line-height: 1; }
+
+  .col-name-input {
+    border: none;
+    border-bottom: 2px dashed rgba(74,46,26,0.2);
+    background: transparent;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--brown);
+    text-align: center;
+    width: 100%;
+    padding: 2px 2px;
+    outline: none;
+  }
+  .col-name-input::placeholder { color: var(--text-light); font-style: italic; font-size: 0.72rem; }
+  .col-name-input:focus { border-bottom-color: var(--terracotta); }
+
+  /* ── CHECK CELLS ── */
+  .check-cell {
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .check-cell.c1 { background: var(--col1-bg); border: 1.5px dashed var(--col1-border); }
+  .check-cell.c2 { background: var(--col2-bg); border: 1.5px dashed var(--col2-border); }
+  .check-cell.c3 { background: var(--col3-bg); border: 1.5px dashed var(--col3-border); }
+
+  .check-row { display: flex; gap: 10px; }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: #fff;
+    flex-shrink: 0;
+  }
+  .check-cell.c1 .check-box { border: 2px solid var(--col1-border); }
+  .check-cell.c2 .check-box { border: 2px solid var(--col2-border); }
+  .check-cell.c3 .check-box { border: 2px solid var(--col3-border); }
+
+  /* ── CUSTOM RULE ROWS ── */
+  .custom-rule-label {
+    background: #fff;
+    border: 1.5px dashed #d8c8b8;
+    border-radius: 10px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .custom-title-input {
+    border: none;
+    border-bottom: 1.5px dashed rgba(74,46,26,0.25);
+    background: transparent;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--brown);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    padding: 1px 0 2px;
+    outline: none;
+  }
+  .custom-title-input::placeholder {
+    color: var(--text-light);
+    font-style: italic;
+    text-transform: none;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+  }
+  .custom-title-input:focus { border-bottom-color: var(--terracotta); }
+
+  .custom-lines { display: flex; flex-direction: column; gap: 2px; }
+
+  .custom-line-input {
+    border: none;
+    border-bottom: 1px dashed rgba(74,46,26,0.1);
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.67rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    width: 100%;
+    padding: 1px 0;
+    outline: none;
+  }
+  .custom-line-input::placeholder { color: #ccc; font-style: italic; }
+  .custom-line-input:focus { border-bottom-color: var(--teal); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 2px solid var(--cream);
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+  }
+
+  .example-card {
+    background: var(--cream-light);
+    border-radius: 9px;
+    padding: 8px 10px;
+    border-left: 3px solid var(--terracotta);
+  }
+  .example-card:nth-child(2) { border-left-color: var(--teal); }
+  .example-card:nth-child(3) { border-left-color: var(--gold); }
+  .example-card:nth-child(4) { border-left-color: var(--terracotta); }
+  .example-card:nth-child(5) { border-left-color: var(--teal); }
+
+  .example-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    color: var(--brown);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 5px;
+  }
+
+  .example-items {
+    font-size: 0.62rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  .example-items span { display: block; }
+  .example-items span::before { content: "→ "; color: var(--text-light); }
+
+  /* ── SIGNATURE ── */
+  .signature {
+    text-align: center;
+    padding-top: 8px;
+    font-size: 0.65rem;
+    color: var(--text-light);
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+  }
+  .signature a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+  }
+  .signature a:hover { text-decoration: underline; }
+
+  /* ── PRINT BUTTON ── */
+  .print-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 4px;
+  }
+  .print-tagline {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    text-align: center;
+    font-style: italic;
+  }
+  .print-btn {
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .print-btn:hover { background: #b8623a; }
+  @media print { .print-bar { display: none; } }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; width: 100%; }
+    input { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .signature a { color: var(--terracotta); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Nos <em>Règles de Vie</em></h1>
+  </div>
+
+  <!-- PRINT BAR -->
+  <div class="print-bar">
+    <p class="print-tagline">Complète, imprime et garde une cohérence pour que ton kid coopère tout l'été.</p>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- Row 0: column headers -->
+    <div class="col-label-empty"></div>
+    <div class="col-header c1">
+      <div class="col-avatars">👧🏻 👦🏻</div>
+      <input class="col-name-input" type="text" placeholder="Prénom…" maxlength="12">
+    </div>
+    <div class="col-header c2">
+      <div class="col-avatars">👧🏻 👦🏻</div>
+      <input class="col-name-input" type="text" placeholder="Prénom…" maxlength="12">
+    </div>
+    <div class="col-header c3">
+      <div class="col-avatars">👧🏻 👦🏻</div>
+      <input class="col-name-input" type="text" placeholder="Prénom…" maxlength="12">
+    </div>
+
+    <!-- Row 6: Custom rule 1 -->
+    <div class="custom-rule-label">
+      <input class="custom-title-input" type="text" placeholder="Règle 1 — écris ton titre ici…">
+      <div class="custom-lines">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+      </div>
+    </div>
+    <div class="check-cell c1"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c2"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c3"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+
+    <!-- Row 7: Custom rule 2 -->
+    <div class="custom-rule-label">
+      <input class="custom-title-input" type="text" placeholder="Règle 2 — écris ton titre ici…">
+      <div class="custom-lines">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+      </div>
+    </div>
+    <div class="check-cell c1"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c2"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c3"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+
+    <!-- Row 8: Custom rule 3 -->
+    <div class="custom-rule-label">
+      <input class="custom-title-input" type="text" placeholder="Règle 3 — écris ton titre ici…">
+      <div class="custom-lines">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+      </div>
+    </div>
+    <div class="check-cell c1"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c2"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c3"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+
+    <!-- Row 9: Custom rule 4 -->
+    <div class="custom-rule-label">
+      <input class="custom-title-input" type="text" placeholder="Règle 4 — écris ton titre ici…">
+      <div class="custom-lines">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+      </div>
+    </div>
+    <div class="check-cell c1"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c2"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c3"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+
+    <!-- Row 10: Custom rule 5 -->
+    <div class="custom-rule-label">
+      <input class="custom-title-input" type="text" placeholder="Règle 5 — écris ton titre ici…">
+      <div class="custom-lines">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+        <input class="custom-line-input" type="text" placeholder="· Exemple de règle…">
+      </div>
+    </div>
+    <div class="check-cell c1"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c2"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+    <div class="check-cell c3"><div class="check-row"><div class="check-box"></div><div class="check-box"></div><div class="check-box"></div></div></div>
+
+  </div><!-- /grid -->
+
+  <!-- FOOTER EXAMPLES -->
+  <div class="footer">
+    <div class="footer-title">Exemples pour t'inspirer</div>
+    <div class="examples-grid">
+
+      <div class="example-card">
+        <div class="example-title">💬 Communiquer</div>
+        <div class="example-items">
+          <span>J'accepte les oui et les non</span>
+          <span>Je verbalise mes émotions sans cris ni gros mots</span>
+          <span>J'écoute les autres</span>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-title">🤝 Honnêteté</div>
+        <div class="example-items">
+          <span>J'assume ce que j'ai fait</span>
+          <span>Je ne mens pas</span>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-title">💛 Respect</div>
+        <div class="example-items">
+          <span>Je prends soin du matériel et des habits</span>
+          <span>Je dis uniquement de jolies choses</span>
+          <span>Je respecte les règles (écrans, coucher, temps calme)</span>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-title">🙏 Merci</div>
+        <div class="example-items">
+          <span>Je me contente de ce que j'ai</span>
+          <span>Je dis merci</span>
+        </div>
+      </div>
+
+      <div class="example-card">
+        <div class="example-title">🪑 Ma place</div>
+        <div class="example-items">
+          <span>Je reste à ma place</span>
+          <span>Je ne prends pas la place de l'autre</span>
+          <span>Je laisse aussi la place aux autres</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="signature">
+    <a href="https://monica-bonetti.ch" target="_blank" rel="noopener">monica-bonetti.ch</a>
+  </div>
+
+</div>
+</body>
+</html>
