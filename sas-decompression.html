@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Mon sas de décompression — monica-bonetti.ch</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#f5f0e8;display:flex;flex-direction:column;align-items:center;padding:20px;gap:16px}
+.no-print{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btn-print{background:#cd764b;color:white;border:none;padding:10px 28px;border-radius:20px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(205,118,75,0.3)}
+.btn-print:hover{background:#b85c33}
+.hint{font-family:'Nunito',sans-serif;color:#aaa;font-size:9px;text-align:center}
+.page-scale-wrapper{position:relative;width:100%;max-width:1122.6px;margin:0 auto}
+.page{position:absolute;top:0;left:0;width:1122.6px;height:793.7px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.12);padding:10mm 14mm;display:flex;flex-direction:column;gap:6mm;transform-origin:top left}
+.titre-main{font-family:'Baloo 2',cursive;font-size:24pt;font-weight:800;line-height:1.1}
+.titre-noir{color:#3a3228}
+.titre-terra{color:#cd764b}
+.section-label{font-size:7.5pt;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.section-hint{font-size:6.8pt;color:#bbb;font-style:italic;margin-top:2px}
+.footer{text-align:center;font-size:7.5pt;color:#ccc;border-top:1px solid #eee;padding-top:5px;margin-top:auto}
+.footer a{color:#cd764b;text-decoration:none;font-weight:800}
+
+/* frise (emoji + ligne pointillée, numérotée, éditable) */
+.frise{display:flex;align-items:flex-start;position:relative;gap:0;min-height:100px}
+.frise::before{content:'';position:absolute;top:34px;left:24px;right:24px;height:3px;background:linear-gradient(90deg,#cd764b,#ffeecf,#cd764b,#ffeecf,#cd764b,#ffeecf,#cd764b);border-radius:4px;z-index:0}
+.etape{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;z-index:1;padding:1px;cursor:grab;user-select:none}
+.etape:active{cursor:grabbing}
+.bubble{width:68px;height:68px;border-radius:50%;background:#faf6f0;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:28pt;line-height:1;outline:3px solid transparent;transition:outline 0.15s}
+.bubble-multi{font-size:16pt;flex-wrap:wrap;gap:1px;line-height:1.1}
+.num-badge{position:absolute;top:-2px;right:calc(50% - 37px);background:#cd764b;color:white;width:17px;height:17px;border-radius:50%;font-size:8pt;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive}
+.remove-badge{position:absolute;top:-2px;left:calc(50% - 37px);background:#c0392b;color:white;width:17px;height:17px;border-radius:50%;font-size:10pt;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;cursor:pointer;opacity:0.85}
+.remove-badge:hover{opacity:1}
+.etape-lbl{font-size:8pt;font-weight:800;color:#3a3228;text-align:center;margin-top:5px;line-height:1.3;max-width:100px}
+.bubble-empty{background:transparent;border:2px dashed #d9cdbb;box-shadow:none}
+.bubble-empty::after{content:'+';color:#d9cdbb;font-size:20pt;font-weight:800}
+.notre-prop-lbl{font-size:6.8pt;font-weight:700;color:#bbb;font-style:italic;text-transform:none;letter-spacing:0}
+
+/* légende + bibliothèque, côte à côte, taille naturelle (pas d'étirement) */
+.row-2col{display:flex;gap:8mm;align-items:flex-start}
+.row-2col>div{flex:1}
+.legende-card{background:#faf6f0;border-radius:9px;padding:9px 12px;display:flex;gap:8px;align-items:flex-start}
+.legende-card .e{font-size:20pt;line-height:1;flex:0 0 auto}
+.legende-card .txt{font-size:8.5pt;line-height:1.45;color:#665c4e}
+.legende-card .txt b{color:#3a3228}
+
+/* bibliothèque d'activités */
+.biblio-wrap{background:#faf6f0;border:1.5px dashed #cd764b;border-radius:10px;padding:9px 12px}
+.biblio-title{font-size:9pt;font-weight:800;color:#cd764b;text-align:center;margin-bottom:2px}
+.biblio-sub{font-size:7.8pt;color:#999;text-align:center;margin-bottom:2px;line-height:1.4}
+.biblio-sub p{margin-top:4px}
+.biblio-cols{display:flex;gap:4mm;margin-top:8px}
+.bc-col{flex:1;border-radius:8px;padding:8px}
+.bc-calme{background:#eefbf9;border:1.5px solid #9ed9d1}
+.bc-defoule{background:#fbf2ec;border:1.5px solid #e3b393}
+.bc-col-title{font-family:'Baloo 2',cursive;font-size:9pt;font-weight:800;text-align:center;margin-bottom:6px}
+.bc-calme .bc-col-title{color:#1f6b64}
+.bc-defoule .bc-col-title{color:#8a3d1f}
+.bc-items{display:flex;justify-content:center;gap:8px}
+.bank-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:grab;padding:2px 4px;border-radius:6px;transition:background 0.15s}
+.bank-item:hover{background:rgba(255,255,255,0.6)}
+.bank-item:active{cursor:grabbing}
+.bank-item .e{font-size:19pt;line-height:1}
+.bank-item .lbl{font-size:6pt;font-weight:700;color:#777;text-align:center;max-width:56px}
+
+@media print{
+  body{background:white;padding:0}
+  .no-print{display:none!important}
+  .page-scale-wrapper{position:static;width:100%;max-width:none;height:auto!important}
+  .page{position:static;width:100%;height:100%;transform:none!important;box-shadow:none;border-radius:0;padding:10mm 14mm}
+  @page{size:A4 landscape;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="btn-print" onclick="window.print()">&#127890; Imprimer</button>
+  <span class="hint">Chrome &#8594; Ctrl+P &#8594; A4 paysage &#8594; Marges : aucune &#8212; "Notre proposition" est fixe, "Compose la tienne" se remplit depuis la bibliothèque (glisser, ou clic pour ajouter à la première case libre)</span>
+</div>
+
+<div class="page-scale-wrapper">
+<div class="page">
+
+  <div class="titre-main"><span class="titre-noir">Mon sas</span> <span class="titre-terra">de décompression</span></div>
+
+  <div>
+    <div class="section-label">Notre proposition <span class="notre-prop-lbl">&#8212; pour t'inspirer, non modifiable</span></div>
+    <div class="frise" id="frise-proposition"></div>
+  </div>
+
+  <div class="legende-card">
+    <span class="e">&#128172;</span>
+    <span class="txt"><b>Bâton de parole :</b> dans un endroit calme de la maison, à tour de rôle et à l'aide du bâton de parole, chacun prend la parole pour raconter sa journée. On peut proposer de raconter 2-3 bonnes et moins bonnes choses pour aider les kids à parler. L'adulte joue aussi le jeu et raconte sa journée pour donner l'exemple. Personne n'est obligé de parler, mais tout le monde écoute en silence. Certains préféreront parler à table et c'est ok, on laisse le temps à chacun.</span>
+  </div>
+
+  <div>
+    <div class="section-label">Compose la tienne &#8212; glisse tes emoji dans l'ordre que tu veux</div>
+    <div class="frise" id="frise-compose"></div>
+    <div class="section-hint">Certains enfants ont besoin de calme ou de défoulement avant le bâton de parole, et c'est ok</div>
+  </div>
+
+  <div class="biblio-wrap">
+    <div class="biblio-title">Bibliothèque d'emoji</div>
+    <div class="biblio-sub">
+      <p style="margin-top:0">Le trop-plein de la journée ne s'évacue pas toujours pareil, à toi de sentir ce qu'il lui faut ou simplement le lui demander.</p>
+    </div>
+    <div class="bc-items" id="bank-compose" style="flex-wrap:wrap;gap:8px"></div>
+  </div>
+
+  <div class="footer"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></div>
+
+</div>
+</div>
+
+<script>
+const PROPOSITION=[
+  {e:'\u{1F392}',l:'Vider son sac'},
+  {e:'\u{1F45F}\u{1F9E5}\u{1F371}',l:'Ranger ses affaires',multi:true},
+  {e:'\u{1F9FC}',l:'Se laver les mains'},
+  {e:'\u{1F9D8}',l:'Moment calme, on attend que tout le monde soit prêt'},
+  {e:'\u{1F4AC}',l:'Bâton de parole'},
+];
+
+function renderProposition(containerId, items){
+  const el=document.getElementById(containerId);
+  el.innerHTML='';
+  items.forEach(function(item,i){
+    const etape=document.createElement('div');
+    etape.className='etape';
+    etape.style.cursor='default';
+    etape.innerHTML=
+      '<div style="position:relative">'+
+        '<div class="bubble'+(item.multi?' bubble-multi':'')+'">'+item.e+'</div>'+
+        '<div class="num-badge">'+(i+1)+'</div>'+
+      '</div>'+
+      '<div class="etape-lbl">'+item.l+'</div>';
+    el.appendChild(etape);
+  });
+}
+
+const BANK_COMPOSE=[
+  {e:'\u{1F392}',l:'Vider son sac'},
+  {e:'\u{1F45F}\u{1F9E5}\u{1F371}',l:'Ranger ses affaires',multi:true},
+  {e:'\u{1F9FC}',l:'Laver les mains'},
+  {e:'\u{1F9D8}',l:'Moment de calme'},
+  {e:'\u{1F4AC}',l:'Bâton de parole'},
+  {e:'\u{1F9E9}',l:'Puzzle'},
+  {e:'\u{1F3A8}',l:'Dessin'},
+  {e:'\u{1F9D8}',l:'Yoga'},
+  {e:'\u{1F6CF}\u{FE0F}',l:'Bataille de coussins'},
+  {e:'\u{1F3C3}',l:'Courir dehors'},
+  {e:'\u{1F938}',l:'Parcours moteur'},
+  {e:'\u{1F4D6}',l:'Histoire'},
+  {e:'\u{1F917}',l:'Câlin'},
+  {e:'\u{1F3B5}',l:'Musique'},
+  {e:'\u{1F4FA}',l:'Télé'},
+];
+const NB_SLOTS=8;
+let slots=[];
+for(let i=0;i<NB_SLOTS;i++) slots.push({e:null,l:null});
+
+const friseCompose=document.getElementById('frise-compose');
+let composeDragBank=null, composeDragSlot=null;
+
+function renderCompose(){
+  friseCompose.innerHTML='';
+  slots.forEach(function(slot,i){
+    const el=document.createElement('div');
+    el.className='etape';
+    const filled=!!slot.e;
+    el.draggable=filled;
+    el.innerHTML='<div style="position:relative">'+
+      '<div class="bubble'+(filled?(slot.multi?' bubble-multi':''):' bubble-empty')+'">'+(filled?slot.e:'')+'</div>'+
+      '<div class="num-badge">'+(i+1)+'</div>'+
+      (filled?'<div class="remove-badge" title="Retirer">&times;</div>':'')+
+    '</div><div class="etape-lbl">'+(filled?slot.l:'')+'</div>';
+
+    el.addEventListener('dragstart',function(ev){
+      if(!slot.e) return;
+      composeDragSlot=i; composeDragBank=null;
+      ev.dataTransfer.setData('text/plain','slot');
+      ev.dataTransfer.effectAllowed='move';
+    });
+    el.addEventListener('dragover',function(ev){
+      ev.preventDefault();
+      el.querySelector('.bubble').style.outline='3px solid #cd764b';
+    });
+    el.addEventListener('dragleave',function(){
+      el.querySelector('.bubble').style.outline='';
+    });
+    el.addEventListener('drop',function(ev){
+      ev.preventDefault();
+      el.querySelector('.bubble').style.outline='';
+      if(composeDragBank){
+        slots[i]={e:composeDragBank.e,l:composeDragBank.l,multi:!!composeDragBank.multi};
+        composeDragBank=null;
+        renderCompose();
+      } else if(composeDragSlot!==null && composeDragSlot!==i){
+        const tmp=slots[i];
+        slots[i]=slots[composeDragSlot];
+        slots[composeDragSlot]=tmp;
+        composeDragSlot=null;
+        renderCompose();
+      }
+    });
+
+    if(filled){
+      el.querySelector('.remove-badge').addEventListener('click',function(ev){
+        ev.stopPropagation();
+        slots[i]={e:null,l:null};
+        renderCompose();
+      });
+    }
+
+    friseCompose.appendChild(el);
+  });
+}
+
+function renderBank(containerId, items){
+  const el=document.getElementById(containerId);
+  items.forEach(function(item){
+    const chip=document.createElement('div');
+    chip.className='bank-item';
+    chip.draggable=true;
+    chip.innerHTML='<span class="e">'+item.e+'</span><span class="lbl">'+item.l+'</span>';
+    chip.addEventListener('dragstart',function(ev){
+      composeDragBank=item; composeDragSlot=null;
+      ev.dataTransfer.setData('text/plain','bank-compose');
+      ev.dataTransfer.effectAllowed='copy';
+    });
+    chip.addEventListener('click',function(){
+      const firstEmpty=slots.findIndex(function(s){return !s.e;});
+      if(firstEmpty!==-1){
+        slots[firstEmpty]={e:item.e,l:item.l,multi:!!item.multi};
+        renderCompose();
+      }
+    });
+    el.appendChild(chip);
+  });
+}
+
+renderProposition('frise-proposition', PROPOSITION);
+renderCompose();
+renderBank('bank-compose', BANK_COMPOSE);
+
+function fitPage(){
+  const wrapper=document.querySelector('.page-scale-wrapper');
+  const page=document.querySelector('.page');
+  const scale=Math.min(1, wrapper.clientWidth/1122.6);
+  page.style.transform='scale('+scale+')';
+  wrapper.style.height=(793.7*scale)+'px';
+}
+window.addEventListener('resize',fitPage);
+fitPage();
+
+</script>
+</body>
+</html>
