@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon tunnel du soir — monica-bonetti.ch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terracotta:#cd764b;
+    --teal:#49ada4;
+    --creme:#ffeecf;
+    --or:#c88d25;
+    --brun:#4a2e1a;
+    --white:#fffdf8;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--creme);
+    color:var(--brun);
+    font-family:'Nunito', sans-serif;
+    line-height:1.5;
+  }
+
+  header{
+    text-align:center;
+    padding:48px 20px 28px;
+  }
+
+  header .eyebrow{
+    font-weight:800;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:.72rem;
+    color:var(--terracotta);
+    margin-bottom:10px;
+  }
+
+  h1{
+    font-family:'Playfair Display', serif;
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 2.9rem);
+    color:var(--brun);
+    margin:0 0 12px;
+  }
+
+  header p{
+    max-width:560px;
+    margin:0 auto;
+    color:#6b5646;
+    font-size:1.02rem;
+  }
+
+  .print-note{
+    max-width:560px;
+    margin:16px auto 0;
+    font-size:.82rem;
+    color:#8a7663;
+    background:var(--white);
+    border:1px dashed #d9c3a5;
+    border-radius:10px;
+    padding:10px 14px;
+  }
+
+  .print-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:18px;
+    background:var(--terracotta);
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:999px;
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(205,118,75,.28);
+  }
+  .print-btn:hover{background:#b6613b;}
+
+  section{
+    padding:36px 8px;
+  }
+
+  .section-inner{
+    max-width:960px;
+    margin:0 auto;
+  }
+
+  .section-title{
+    font-family:'Playfair Display', serif;
+    font-size:1.5rem;
+    font-weight:700;
+    color:var(--brun);
+    margin:0 0 4px;
+  }
+
+  .section-sub{
+    font-size:.92rem;
+    color:#6b5646;
+    margin:0 0 24px;
+  }
+
+  /* Notre proposition */
+  .proposition{
+    background:var(--white);
+    border:2px solid var(--or);
+    border-radius:22px;
+  }
+
+  .ritual-row{
+    display:flex;
+    flex-wrap:nowrap;
+    align-items:flex-start;
+    justify-content:center;
+    gap:0 2px;
+    overflow-x:auto;
+    padding-bottom:6px;
+  }
+
+  .ritual-step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex-shrink:0;
+    width:88px;
+  }
+
+  .ritual-step .circle{
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    background:var(--creme);
+    border:2.5px solid var(--terracotta);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.7rem;
+    margin-bottom:8px;
+  }
+
+  .ritual-step .label{font-size:.68rem; font-weight:700; color:var(--brun); line-height:1.2; text-align:center;}
+
+  .arrow{
+    color:var(--terracotta);
+    font-size:1.2rem;
+    font-weight:700;
+    flex-shrink:0;
+    align-self:center;
+    padding:0 2px 24px;
+  }
+
+  /* Compose la tienne */
+  .compose .section-title{color:var(--terracotta);}
+
+  .compose-hint{
+    background:var(--white);
+    border-left:4px solid var(--or);
+    border-radius:0 12px 12px 0;
+    padding:10px 16px;
+    font-size:.86rem;
+    color:#6b5646;
+    margin-bottom:22px;
+  }
+
+  .bubbles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+
+  .bubble{
+    width:84px;
+    height:84px;
+    border-radius:50%;
+    border:2.5px dashed #d9b98e;
+    background:var(--white);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2.1rem;
+    cursor:pointer;
+    transition:transform .12s ease, border-color .12s ease, background .12s ease;
+  }
+
+  .bubble.filled{
+    border-style:solid;
+    border-color:var(--terracotta);
+    background:#fff6ea;
+  }
+
+  .bubble.dragover{
+    border-color:var(--or);
+    transform:scale(1.06);
+  }
+
+  .bubble:active{transform:scale(.95);}
+
+  .compose-actions{
+    text-align:center;
+  }
+
+  .reset-btn{
+    background:none;
+    border:1.5px solid var(--terracotta);
+    color:var(--terracotta);
+    padding:8px 18px;
+    border-radius:999px;
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:.85rem;
+    cursor:pointer;
+  }
+  .reset-btn:hover{background:var(--terracotta); color:#fff;}
+
+  /* Library */
+  .library{
+    background:var(--white);
+    border-radius:22px;
+  }
+
+  .lib-group{margin-bottom:22px;}
+  .lib-group:last-child{margin-bottom:0;}
+
+  .lib-group h3{
+    font-family:'Nunito', sans-serif;
+    font-size:.78rem;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--or);
+    margin:0 0 12px;
+  }
+
+  .lib-group.defoulement h3{color:var(--terracotta);}
+
+  .lib-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .lib-item{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:var(--creme);
+    border:1.5px solid transparent;
+    border-radius:999px;
+    padding:8px 14px 8px 10px;
+    cursor:grab;
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--brun);
+    user-select:none;
+    transition:border-color .12s ease, transform .1s ease;
+  }
+
+  .lib-item .emoji{font-size:1.3rem;}
+
+  .lib-group.defoulement .lib-item{background:#fdece3;}
+
+  .lib-item:hover{border-color:var(--or);}
+  .lib-group.defoulement .lib-item:hover{border-color:var(--terracotta);}
+  .lib-item:active{cursor:grabbing; transform:scale(.96);}
+
+  footer{
+    text-align:center;
+    padding:34px 20px 50px;
+  }
+
+  footer p{
+    max-width:520px;
+    margin:0 auto 14px;
+    font-size:.92rem;
+    color:#6b5646;
+    font-style:italic;
+  }
+
+  footer a{
+    color:var(--terracotta);
+    font-weight:700;
+    text-decoration:none;
+  }
+
+  @media (max-width:640px){
+    .ritual-step{width:62px;}
+    .ritual-step .circle{width:52px; height:52px; font-size:1.25rem; margin-bottom:5px;}
+    .ritual-step .label{font-size:.58rem;}
+    .arrow{font-size:.95rem; padding:0 0 20px;}
+    .bubble{width:70px; height:70px; font-size:1.7rem;}
+  }
+
+  @media print{
+    @page{ size: A4 landscape; margin:8mm; }
+    body{background:#fff;}
+    .print-btn, .compose-actions, .library, .print-note, .compose-hint{display:none !important;}
+    section{padding:14px 10px;}
+    .proposition{background:var(--teal-tint) !important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Planning</div>
+  <h1>🌙 Mon tunnel du soir</h1>
+  <p>Un rituel pour aider ton kid à glisser doucement vers le sommeil.</p>
+  <button class="print-btn" onclick="window.print()">🎒 Imprimer</button>
+  <p class="print-note">Chrome → Ctrl+P → A4 paysage → Marges : aucune. "Notre proposition" est fixe, "Compose la tienne" se remplit depuis la bibliothèque (glisser, ou clic pour ajouter à la première case libre).</p>
+</header>
+
+<section class="proposition">
+  <div class="section-inner">
+    <p class="section-title">Notre proposition</p>
+    <p class="section-sub">pour t'inspirer, non modifiable</p>
+    <div class="ritual-row">
+      <div class="ritual-step"><span class="circle">🍽️</span><span class="label">Débarrasser la table</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">🧩</span><span class="label">Jeu libre calme</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">🛁</span><span class="label">Douche / toilette</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">🪥</span><span class="label">Brossage de dents</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">👕</span><span class="label">Affaires pour demain</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">📖</span><span class="label">Histoire</span></div>
+      <span class="arrow">→</span>
+      <div class="ritual-step"><span class="circle">🌙</span><span class="label">Câlin, bonne nuit</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="compose">
+  <div class="section-inner">
+    <p class="section-title">Compose la tienne</p>
+    <p class="section-sub">glisse tes emoji dans l'ordre que tu veux</p>
+    <p class="compose-hint">Certains enfants ont besoin de se défouler avant de se poser, et c'est ok.</p>
+
+    <div class="bubbles" id="bubbles"></div>
+
+    <div class="compose-actions">
+      <button class="reset-btn" id="resetBtn">Réinitialiser</button>
+    </div>
+  </div>
+</section>
+
+<section class="library">
+  <div class="section-inner">
+    <p class="section-title">Bibliothèque d'emoji</p>
+
+    <div class="lib-group calme">
+      <h3>Calme &amp; routine</h3>
+      <div class="lib-row" id="libCalme"></div>
+    </div>
+
+    <div class="lib-group defoulement">
+      <h3>Défoulement</h3>
+      <div class="lib-row" id="libDefoulement"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Le passage vers le coucher n'est pareil chez tous les kids, à toi de sentir ce qu'il lui faut ou simplement le lui demander.</p>
+  <a href="https://monica-bonetti.ch">monica-bonetti.ch</a>
+</footer>
+
+<script>
+  const calmeItems = [
+    {e:"📖", l:"Livre"},
+    {e:"🪥", l:"Brossage de dents"},
+    {e:"🛁", l:"Douche / bain"},
+    {e:"🍽️", l:"Débarrasser la table"},
+    {e:"👕", l:"Préparer affaires du lendemain"},
+    {e:"👚", l:"Pyjama"},
+    {e:"🧸", l:"Doudou"},
+    {e:"🤗", l:"Câlin, bisous"},
+    {e:"🌙", l:"Veilleuse, lumière tamisée"},
+    {e:"🎵", l:"Musique douce"},
+    {e:"🧩", l:"Puzzle, jeu calme"},
+  ];
+
+  const defoulementItems = [
+    {e:"🛏️", l:"Bataille de coussins"},
+    {e:"💃", l:"Danse folle"},
+    {e:"🧘", l:"Respiration, étirements"},
+    {e:"🐻", l:"Câlin XXL, bagarre douce"},
+  ];
+
+  const NB_BUBBLES = 8;
+  const bubblesEl = document.getElementById('bubbles');
+  const libCalmeEl = document.getElementById('libCalme');
+  const libDefEl = document.getElementById('libDefoulement');
+
+  function makeBubble(i){
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    b.dataset.index = i;
+
+    b.addEventListener('dragover', e => { e.preventDefault(); b.classList.add('dragover'); });
+    b.addEventListener('dragleave', () => b.classList.remove('dragover'));
+    b.addEventListener('drop', e => {
+      e.preventDefault();
+      b.classList.remove('dragover');
+      const emoji = e.dataTransfer.getData('text/plain');
+      if(emoji) fillBubble(b, emoji);
+    });
+
+    b.addEventListener('click', () => {
+      if(b.classList.contains('filled')){
+        b.textContent = '';
+        b.classList.remove('filled');
+      }
+    });
+
+    return b;
+  }
+
+  function fillBubble(bubble, emoji){
+    bubble.textContent = emoji;
+    bubble.classList.add('filled');
+  }
+
+  function fillFirstEmpty(emoji){
+    const empty = bubblesEl.querySelector('.bubble:not(.filled)');
+    if(empty) fillBubble(empty, emoji);
+  }
+
+  for(let i=0;i<NB_BUBBLES;i++){
+    bubblesEl.appendChild(makeBubble(i));
+  }
+
+  function makeLibItem(item){
+    const el = document.createElement('div');
+    el.className = 'lib-item';
+    el.draggable = true;
+    el.innerHTML = '<span class="emoji">'+item.e+'</span><span>'+item.l+'</span>';
+
+    el.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', item.e);
+    });
+
+    el.addEventListener('click', () => fillFirstEmpty(item.e));
+
+    return el;
+  }
+
+  calmeItems.forEach(item => libCalmeEl.appendChild(makeLibItem(item)));
+  defoulementItems.forEach(item => libDefEl.appendChild(makeLibItem(item)));
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    bubblesEl.querySelectorAll('.bubble').forEach(b => {
+      b.textContent = '';
+      b.classList.remove('filled');
+    });
+  });
+</script>
+
+</body>
+</html>
