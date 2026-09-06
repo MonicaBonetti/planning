@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mets le curseur au bon endroit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #cd764b;
+    --teal: #49ada4;
+    --creme: #faf6f0;
+    --or: #c88d25;
+    --brun: #4a2e1a;
+    --c1: #6fa96b;
+    --c2: #c9a63e;
+    --c3: #c88d25;
+    --c4: #c0682f;
+    --c5: #a83c2e;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--creme);
+    color: var(--brun);
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    line-height: 1.25;
+    color: var(--terracotta);
+    text-align: center;
+    margin: 0 0 24px;
+  }
+
+  .intro {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 520px;
+    margin: 0 auto 56px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(74, 46, 26, 0.15);
+    margin: 40px 0;
+  }
+
+  .question-block {
+    margin-bottom: 36px;
+  }
+
+  .question-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--teal);
+    font-size: 1rem;
+    margin: 0 0 8px;
+  }
+
+  .question-text {
+    font-size: 1.15rem;
+    margin: 0;
+  }
+
+  .question-example {
+    font-size: 0.95rem;
+    color: rgba(74, 46, 26, 0.75);
+    margin: 10px 0 0;
+    font-style: italic;
+  }
+
+  .fresque-intro {
+    text-align: center;
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto 44px;
+  }
+
+  /* --- Color bar + pointers + captions --- */
+  .color-bar {
+    display: flex;
+    gap: 8px;
+  }
+
+  .block {
+    flex: 1;
+    height: 64px;
+    border-radius: 14px;
+  }
+
+  .pointer-row, .caption-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pointer-cell {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pointer {
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 12px solid var(--brun);
+    margin-top: 4px;
+  }
+
+  .caption-cell {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px 0;
+  }
+
+  .caption-title {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .caption-text {
+    display: block;
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: rgba(74, 46, 26, 0.85);
+  }
+
+  .caption-cell:nth-child(1) .caption-title { color: var(--c1); }
+  .caption-cell:nth-child(2) .caption-title { color: var(--c2); }
+  .caption-cell:nth-child(3) .caption-title { color: var(--c3); }
+  .caption-cell:nth-child(4) .caption-title { color: var(--c4); }
+  .caption-cell:nth-child(5) .caption-title { color: var(--c5); }
+
+  .block:nth-child(1) { background: var(--c1); }
+  .block:nth-child(2) { background: var(--c2); }
+  .block:nth-child(3) { background: var(--c3); }
+  .block:nth-child(4) { background: var(--c4); }
+  .block:nth-child(5) { background: var(--c5); }
+
+  .signature {
+    text-align: center;
+    margin-top: 72px;
+    font-size: 0.95rem;
+  }
+
+  .signature a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 48px 16px 64px; }
+    h1 { font-size: 1.5rem; }
+    .block { height: 48px; border-radius: 10px; }
+    .caption-title { font-size: 0.68rem; }
+    .caption-text { font-size: 0.62rem; }
+    .color-bar, .pointer-row, .caption-row { gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Mets le curseur au bon endroit et adapte le cadre.</h1>
+  <p class="intro">Tu te demandes si tu fais bien, juste, mal ou faux ? Pose-toi ces questions pour adapter le curseur.</p>
+
+  <hr class="divider">
+
+  <div class="question-block">
+    <p class="question-label">Question 1</p>
+    <p class="question-text">Est-ce que ça s'est déjà produit ?</p>
+  </div>
+
+  <div class="question-block">
+    <p class="question-label">Question 2</p>
+    <p class="question-text">As-tu verbalisé, expliqué, validé ses émotions ?</p>
+  </div>
+
+  <div class="question-block">
+    <p class="question-label">Question 3</p>
+    <p class="question-text">Est-ce que ton kid fait un effort, même minime — ou c'est pire ?</p>
+  </div>
+
+  <div class="question-block">
+    <p class="question-label">Question 4</p>
+    <p class="question-text">Tes attentes sont-elles réalistes, adaptées à son âge et l'environnement est-il propice ?</p>
+    <p class="question-example">À 20h, tu attends que ton kid de 5 ans fasse une dissertation sur sa journée... ça ne va pas le faire.</p>
+  </div>
+
+  <hr class="divider">
+
+  <p class="fresque-intro">Une fois les 4 questions posées, situe où tu en es. Le cadre s'ajuste, il ne se répète pas à l'identique.</p>
+
+  <div class="color-bar">
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+  </div>
+
+  <div class="pointer-row">
+    <div class="pointer-cell"><div class="pointer"></div></div>
+    <div class="pointer-cell"><div class="pointer"></div></div>
+    <div class="pointer-cell"><div class="pointer"></div></div>
+    <div class="pointer-cell"><div class="pointer"></div></div>
+    <div class="pointer-cell"><div class="pointer"></div></div>
+  </div>
+
+  <div class="caption-row">
+    <div class="caption-cell">
+      <span class="caption-title">C'est nouveau</span>
+      <span class="caption-text">Je prends le temps d'expliquer à mon enfant.</span>
+    </div>
+    <div class="caption-cell">
+      <span class="caption-title">Débordement répétitif</span>
+      <span class="caption-text">J'ajoute une explication visuelle, je valide ses émotions et j'ai une discussion courte où il est 100% connecté, sans distraction.</span>
+    </div>
+    <div class="caption-cell">
+      <span class="caption-title">0 amélioration</span>
+      <span class="caption-text">Son devoir est d'accepter le cadre défini, je le réaffirme sans négocier.</span>
+    </div>
+    <div class="caption-cell">
+      <span class="caption-title">C'est de pire en pire</span>
+      <span class="caption-text">Je donne une dernière chance orale avant la punition.</span>
+    </div>
+    <div class="caption-cell">
+      <span class="caption-title">Ça persiste</span>
+      <span class="caption-text">La punition tombe au plus juste de ce que ça implique de ne pas avoir respecté le cadre <em>(on a dû payer une méga facture, retrouver une nounou, aller voir la prof)</em>.</span>
+    </div>
+  </div>
+
+  <p class="signature"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></p>
+
+</div>
+</body>
+</html>
