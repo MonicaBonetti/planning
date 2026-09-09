@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Qui fait quoi — monica-bonetti.ch</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Nunito',sans-serif;background:#f5f0e8;display:flex;flex-direction:column;align-items:center;padding:20px;gap:16px}
@@ -35,26 +35,45 @@ table.tbl th{padding:6px 4px;font-family:'Baloo 2',cursive;font-size:8.5pt;font-
 table.tbl td{vertical-align:middle;padding:1.5px}
 .jour-lbl{padding:4px 3px!important;border-radius:7px;font-family:'Baloo 2',cursive;font-size:8pt;font-weight:800;color:#3a3228;background:#ffeecf;white-space:nowrap;text-align:center}
 .cren-lbl{font-size:6pt;font-weight:800;color:#aaa;text-align:center;text-transform:uppercase;letter-spacing:0.5px}
-.qfq-cell{height:26px;border-radius:6px;border:1.5px dashed #e3d9c8;background:#faf6f0;display:flex;align-items:center;justify-content:center;font-size:14pt;line-height:1;cursor:pointer;transition:background 0.12s,border-color 0.12s}
+.qfq-cell{height:26px;border-radius:6px;border:1.5px dashed #e3d9c8;background:#faf6f0;display:flex;align-items:center;justify-content:center;font-size:13pt;line-height:1;cursor:text;transition:background 0.12s,border-color 0.12s;outline:none;padding:0 2px;text-align:center}
 .qfq-cell:hover{background:#f0e8d8;border-color:#cd764b}
+.qfq-cell:focus{background:#fff;border-style:solid;border-color:#cd764b}
 .qfq-cell.filled{border-style:solid;border-color:#f0e8da}
 .day-sep td{border-top:2px solid #e8ddd0}
 
-.biblio-wrap{background:#faf6f0;border:1.5px dashed #cd764b;border-radius:10px;padding:8px 10px}
-.biblio-title{font-size:7.5pt;font-weight:800;color:#cd764b;text-align:center;margin-bottom:6px}
-.bank-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-.bank-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:white;border:1.5px solid #f0e8da;border-radius:7px;padding:5px 7px;cursor:pointer;min-width:52px;user-select:none;transition:border-color 0.12s,background 0.12s}
-.bank-item:hover{border-color:#cd764b}
-.bank-item.selected{border-color:#cd764b;background:#ffeecf}
-.bank-item .e{font-size:16pt;line-height:1}
-.bank-item .lbl{font-size:5.5pt;color:#999;font-weight:700;text-align:center;line-height:1.2;max-width:60px}
+.astuce-wrap{background:#faf6f0;border:1.5px dashed #cd764b;border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px}
+.astuce-wrap .e{font-size:15pt;line-height:1;flex-shrink:0}
+.astuce-wrap p{font-size:7.3pt;color:#7a7266;line-height:1.35}
+.astuce-wrap p b{color:#cd764b}
 
-.footer{}
+/* Page 2 */
+.titre-main.small{font-size:16pt}
+.age-cols{column-count:2;column-gap:8mm}
+.age-block{break-inside:avoid;margin-bottom:4mm}
+.age-pill{display:inline-block;padding:2.5px 10px;border-radius:20px;font-family:'Baloo 2',cursive;font-size:8.5pt;font-weight:800;margin-bottom:3px}
+.age-pill.a0{background:#eee6da;color:#8a7f6a}
+.age-pill.a1{background:#dcf3f1;color:#1f6b64}
+.age-pill.a2{background:#f7e8c9;color:#8a6110}
+.age-pill.a3{background:#f7e4da;color:#8a3d1f}
+.age-pill.a4{background:#eadcf7;color:#6b3f8a}
+.age-block ul{list-style:none;padding:0;margin:0}
+.age-block li{font-size:7.6pt;color:#4a4238;line-height:1.5;padding-left:12px;position:relative}
+.age-block li::before{content:'•';position:absolute;left:0;color:#cd764b;font-weight:800}
+.age-note{background:#faf6f0;border-radius:10px;padding:7px 10px;font-size:7.3pt;color:#5c5346;line-height:1.45}
+.age-note b{color:#cd764b}
+
+.retenir-title{font-family:'Baloo 2',cursive;font-size:10pt;font-weight:800;color:#3a3228;margin-bottom:3px}
+.retenir-grid{display:flex;gap:6px}
+.retenir-card{flex:1;background:#fff;border:1.5px solid #f0e8da;border-radius:9px;padding:6px 8px;display:flex;gap:6px;align-items:flex-start}
+.retenir-num{flex-shrink:0;width:16px;height:16px;border-radius:50%;background:#cd764b;color:#fff;font-family:'Baloo 2',cursive;font-size:8pt;font-weight:800;display:flex;align-items:center;justify-content:center}
+.retenir-card p{font-size:6.9pt;color:#4a4238;line-height:1.4}
+
 @media print{
   body{background:white;padding:0}
   .no-print{display:none!important}
   .page-scale-wrapper{position:static;width:100%;max-width:none;height:auto!important}
-  .page{position:static;width:100%;transform:none!important;box-shadow:none;border-radius:0;padding:8mm 10mm}
+  .page{position:static;width:100%;transform:none!important;box-shadow:none;border-radius:0;padding:8mm 10mm;page-break-after:always}
+  .page-scale-wrapper:last-child .page{page-break-after:auto}
   @page{size:A4 portrait;margin:0}
 }
 </style>
@@ -66,6 +85,7 @@ table.tbl td{vertical-align:middle;padding:1.5px}
   <span class="hint">Chrome &#8594; Ctrl+P &#8594; A4 portrait &#8594; Marges : aucune</span>
 </div>
 
+<!-- PAGE 1 : planning -->
 <div class="page-scale-wrapper">
 <div class="page">
 
@@ -89,9 +109,107 @@ table.tbl td{vertical-align:middle;padding:1.5px}
     </table>
   </div>
 
-  <div class="biblio-wrap">
-    <div class="biblio-title">Bibliothèque, clique sur l'activité, puis clique la case du bon créneau.</div>
-    <div class="bank-grid" id="qfq-bank"></div>
+  <div class="astuce-wrap">
+    <span class="e">✏️</span>
+    <p><b>Astuce :</b> clique dans une case pour écrire un émoji ou un mot. Tu peux aussi laisser la case vide sur la version imprimée pour dessiner, écrire à la main, ou coller un petit sticker !</p>
+  </div>
+
+  <div class="footer"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></div>
+
+</div>
+</div>
+
+<!-- PAGE 2 : idées de tâches par âge -->
+<div class="page-scale-wrapper">
+<div class="page">
+
+  <div class="titre-main small"><span class="titre-noir">Idées de tâches</span> <span class="titre-terra">par âge</span></div>
+
+  <div class="age-cols">
+
+    <div class="age-block">
+      <span class="age-pill a0">Avant 18 mois</span>
+      <ul>
+        <li>Rien, ou un coin dédié spécifique : meuble à hauteur de l'enfant, assiettes, verres en plastique qu'il peut ranger à la sortie du lave-vaisselle et mettre à table lors des repas</li>
+      </ul>
+    </div>
+
+    <div class="age-block">
+      <span class="age-pill a1">2-3 ans</span>
+      <ul>
+        <li>Mettre ses habits dans la corbeille de linge sale</li>
+        <li>Aide à la lessive, mettre les habits dans le tambour et appuyer sur le bouton</li>
+        <li>Enlever les housses de coussin quand on change les draps</li>
+        <li>Ranger les jeux utilisés</li>
+        <li>Jeter les déchets à la poubelle</li>
+        <li>Aider à plier le linge et apprendre à le ranger dans son armoire</li>
+      </ul>
+    </div>
+
+    <div class="age-block">
+      <span class="age-pill a2">4-6 ans</span>
+      <ul>
+        <li>Faire sa boîte de goûter</li>
+        <li>S'occuper de faire et prendre son sac de gym</li>
+        <li>Enlever les draps et se faire aider pour les remettre</li>
+        <li>Mettre et débarrasser la table</li>
+        <li>Vider le lave-vaisselle</li>
+        <li>Passer l'aspi</li>
+        <li>Vider son sac d'école et le ranger</li>
+        <li>Essuyer la table après le repas</li>
+        <li>Plier le linge et le ranger</li>
+      </ul>
+    </div>
+
+    <div class="age-block">
+      <span class="age-pill a3">7-10 ans</span>
+      <ul>
+        <li>Être responsable de faire ses devoirs</li>
+        <li>Participer au nettoyage (sa chambre, une salle de bain, la cuisine)</li>
+        <li>Préparer son petit-déj</li>
+        <li>Gérer son réveil et l'heure du coucher en respectant les règles</li>
+      </ul>
+    </div>
+
+    <div class="age-block">
+      <span class="age-pill a4">11-15 ans</span>
+      <ul>
+        <li>Faire des repas simples</li>
+        <li>Faire qq courses (pas trop lourdes !)</li>
+        <li>Sortir les poubelles</li>
+        <li>S'occuper de la lessive de toute la famille</li>
+      </ul>
+    </div>
+
+    <div class="age-note">
+      L'idée c'est que les tâches se rajoutent peu à peu en grandissant.<br><br>
+      <b>On ne remplace pas</b> la tâche introduite à 4 ans par une autre tâche à 7.<br><br>
+      On garde celles introduites qui sont devenues simples et connues à force de répétition, et on rajoute un peu au fil des années.
+    </div>
+
+  </div>
+
+  <div>
+    <div class="retenir-title">À retenir</div>
+    <div class="retenir-grid">
+      <div class="retenir-card">
+        <span class="retenir-num">1</span>
+        <p>L'aide du parent est toujours nécessaire pour expliquer et accompagner l'enfant. Plus il grandit, moins il a besoin de toi à force de répétition. Mais n'oublie pas, même grand, à chaque nouvelle étape on recommence : expliquer et accompagner.</p>
+      </div>
+      <div class="retenir-card">
+        <span class="retenir-num">2</span>
+        <p>Les tâches doivent être réalistes et rentrer dans le planning de l'enfant. On ne demande pas de changer les draps à 20h ni de courir après l'école pour aller faire les courses. On module selon la réalité. Exemple : l'enfant est à la maison à 16h00, il a 2 tâches à faire. À 17h00, tout est terminé, il profite.</p>
+      </div>
+      <div class="retenir-card">
+        <span class="retenir-num">3</span>
+        <p>Le temps de jeux reste primordial. Après une journée d'obligation scolaire, l'idée n'est pas de le dégoûter avec 2h de tâches à la maison. Le tout est de trouver le juste milieu entre responsabilité, autonomie et temps libre. Assure-toi que chaque jour ton enfant ait du temps libre. Il peut par contre avoir 3 tâches lissées sur la semaine et pas 1 par jour.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="astuce-wrap">
+    <span class="e">🎨</span>
+    <p><b>Pour illustrer les tâches</b> sur le planning : ajoute des émojis, laisse ton enfant dessiner un petit symbole, ou écris un mot. L'idée, c'est que chacun sache ce qu'il doit faire d'un simple coup d'œil sur le planning !</p>
   </div>
 
   <div class="footer"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></div>
@@ -102,16 +220,6 @@ table.tbl td{vertical-align:middle;padding:1.5px}
 <script>
 const JOURS=['LUN','MAR','MER','JEU','VEN'];
 const CRENEAUX=['Matin','Midi','Soir'];
-const ACTIVITES=[
-  {e:'\u{1F9D2}',l:"S'occupe des kids"},
-  {e:'\u{1F697}',l:'Récupère les kids'},
-  {e:'\u{1F373}',l:'Fait à manger'},
-  {e:'\u{1F3E0}',l:'Rentre manger'},
-  {e:'\u{1F6B8}',l:"Dépose à l'école"},
-  {e:'\u{1F4DA}',l:'Aide aux devoirs / Devoirs'},
-  {e:'\u{1F6C1}',l:'Douche / bain'},
-  {e:'\u{1F392}',l:'Prépare le sac du lendemain'},
-];
 
 const tbody=document.getElementById('qfq-body');
 JOURS.forEach(function(jour, ji){
@@ -124,56 +232,31 @@ JOURS.forEach(function(jour, ji){
     }
     html+='<td class="cren-lbl">'+cren+'</td>';
     for(let p=0;p<5;p++){
-      html+='<td><div class="qfq-cell" data-jour="'+ji+'" data-cren="'+ci+'" data-p="'+p+'"></div></td>';
+      html+='<td><div class="qfq-cell" contenteditable="true" data-jour="'+ji+'" data-p="'+p+'"></div></td>';
     }
     tr.innerHTML=html;
     tbody.appendChild(tr);
   });
 });
 
-let selected=null;
-
-const bank=document.getElementById('qfq-bank');
-ACTIVITES.forEach(function(item){
-  const chip=document.createElement('div');
-  chip.className='bank-item';
-  chip.innerHTML='<span class="e">'+item.e+'</span><span class="lbl">'+item.l+'</span>';
-  chip.addEventListener('click',function(){
-    if(selected===item){
-      selected=null;
-      chip.classList.remove('selected');
+document.addEventListener('input', function(e){
+  if(e.target.classList && e.target.classList.contains('qfq-cell')){
+    if(e.target.textContent.trim()){
+      e.target.classList.add('filled');
     } else {
-      document.querySelectorAll('.bank-item').forEach(function(c){c.classList.remove('selected');});
-      selected=item;
-      chip.classList.add('selected');
+      e.target.classList.remove('filled');
     }
-  });
-  bank.appendChild(chip);
-});
-
-document.querySelectorAll('.qfq-cell').forEach(function(cell){
-  cell.addEventListener('click',function(){
-    if(selected){
-      cell.textContent=selected.e;
-      cell.title=selected.l;
-      cell.classList.add('filled');
-      document.querySelectorAll('.bank-item').forEach(function(c){c.classList.remove('selected');});
-      selected=null;
-    } else if(cell.textContent){
-      cell.textContent='';
-      cell.title='';
-      cell.classList.remove('filled');
-    }
-  });
-});
+  }
+}, true);
 
 function fitPage(){
-  const wrapper=document.querySelector('.page-scale-wrapper');
-  const page=document.querySelector('.page');
-  const naturalHeight=page.offsetHeight;
-  const scale=Math.min(1, wrapper.clientWidth/793.7);
-  page.style.transform='scale('+scale+')';
-  wrapper.style.height=(naturalHeight*scale)+'px';
+  document.querySelectorAll('.page-scale-wrapper').forEach(function(wrapper){
+    const page=wrapper.querySelector('.page');
+    const naturalHeight=page.offsetHeight;
+    const scale=Math.min(1, wrapper.clientWidth/793.7);
+    page.style.transform='scale('+scale+')';
+    wrapper.style.height=(naturalHeight*scale)+'px';
+  });
 }
 window.addEventListener('resize',fitPage);
 window.addEventListener('load',fitPage);
