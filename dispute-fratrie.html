@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le jeu des disputes frères et sœurs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 22mm 20mm; }
+
+  :root {
+    --terracotta: #cd764b;
+    --teal: #49ada4;
+    --creme: #faf6f0;
+    --or: #c88d25;
+    --brun: #4a2e1a;
+    --c1: #6fa96b;
+    --c2: #c9a63e;
+    --c3: #c0682f;
+    --c4: #49ada4;
+    --c5: #a83c2e;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--creme);
+    color: var(--brun);
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 56px 20px 72px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    line-height: 1.35;
+    color: var(--terracotta);
+    text-align: center;
+    max-width: 460px;
+    margin: 0 auto 22px;
+    text-wrap: balance;
+  }
+
+  .intro {
+    text-align: center;
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 0 auto 44px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(74, 46, 26, 0.15);
+    margin: 36px 0;
+  }
+
+  /* --- Bandeau du haut : images seules + sous-titre --- */
+  .icones-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 44px;
+  }
+
+  .icone-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .illustration-cell {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 76px;
+    border-radius: 18px;
+    font-size: 2rem;
+  }
+
+  .icone-titre {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin: 8px 0 0;
+    text-align: center;
+  }
+
+  .icone-col:nth-child(1) .icone-titre { color: var(--c1); }
+  .icone-col:nth-child(2) .icone-titre { color: var(--c4); }
+  .icone-col:nth-child(3) .icone-titre { color: var(--c2); }
+  .icone-col:nth-child(4) .icone-titre { color: var(--c3); }
+  .icone-col:nth-child(5) .icone-titre { color: var(--c5); }
+
+  /* --- Lignes d'explication (titre + question + exemples) --- */
+  .explication-ligne {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .explication-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .col-titre {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0 0 8px;
+    text-align: center;
+  }
+
+  .explication-ligne:nth-child(1) .col-titre { color: var(--c1); }
+
+  .col-question {
+    font-size: 0.85rem;
+    font-style: italic;
+    text-align: center;
+    margin: 0 0 14px;
+    color: rgba(74, 46, 26, 0.85);
+  }
+
+  .examples-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .ex-item {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  /* --- Tableau final (coches) --- */
+  .tableau {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .tableau-question {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    color: var(--teal);
+    font-size: 1.1rem;
+    margin: 0 0 22px;
+  }
+
+  .gommettes-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+
+  .gommette-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gommette {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px dashed rgba(74, 46, 26, 0.35);
+    background: #fff;
+  }
+
+  .jour-label {
+    font-size: 0.76rem;
+    color: rgba(74, 46, 26, 0.7);
+  }
+
+  .recompense {
+    font-size: 0.98rem;
+    max-width: 520px;
+    margin: 22px auto 0;
+  }
+
+  /* --- Règle du parent --- */
+  .regle-parent {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 26px;
+    margin-top: 4px;
+  }
+
+  .regle-parent-titre {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--terracotta);
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0 0 18px;
+  }
+
+  .regle-parent ul {
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  .regle-parent li {
+    margin-bottom: 13px;
+    font-size: 0.98rem;
+  }
+
+  .signature {
+    text-align: center;
+    margin-top: 64px;
+    font-size: 0.92rem;
+  }
+
+  .signature a {
+    color: var(--terracotta);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 44px 16px 60px; }
+    h1 { font-size: 1.4rem; }
+    .icones-row { flex-wrap: wrap; row-gap: 20px; }
+    .icone-col { flex: 0 0 30%; }
+    .explication-ligne { flex-direction: column; gap: 28px; }
+    .examples-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { max-width: 100%; padding: 0; }
+    .icones-row, .explication-ligne { page-break-inside: avoid; }
+    .regle-parent { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Deviens le maître de la gestion des disputes dans la fratrie.</h1>
+  <p class="intro">Une dispute éclate ? Parcours cette feuille avec tes kids et profite des petits miracles jour après jour.</p>
+
+  <div class="icones-row">
+    <div class="icone-col">
+      <div class="illustration-cell" style="background: rgba(111, 169, 107, 0.18);">🗨️</div>
+      <p class="icone-titre">Communiquer</p>
+    </div>
+    <div class="icone-col">
+      <div class="illustration-cell" style="background: rgba(73, 173, 164, 0.18);">👂</div>
+      <p class="icone-titre">Écouter</p>
+    </div>
+    <div class="icone-col">
+      <div class="illustration-cell" style="background: rgba(201, 166, 62, 0.18);">😢</div>
+      <p class="icone-titre">Émotion</p>
+    </div>
+    <div class="icone-col">
+      <div class="illustration-cell" style="background: rgba(192, 104, 47, 0.18);">🤝</div>
+      <p class="icone-titre">Solution</p>
+    </div>
+    <div class="icone-col">
+      <div class="illustration-cell" style="background: rgba(168, 60, 46, 0.18);">🤗</div>
+      <p class="icone-titre">Réparer</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Ligne 1 : Communiquer / Écouter / Émotion -->
+  <div class="explication-ligne">
+    <div class="explication-col">
+      <p class="col-titre" style="color: var(--c1);">Communiquer</p>
+      <p class="col-question">Est-ce que j'ai formulé une phrase, ou juste crié / arraché ?</p>
+      <div class="examples-grid">
+        <div class="ex-item">❌ "Arrête !" / "Rends-le moi !" / je crie, je tire</div>
+        <div class="ex-item">✅ "Je veux jouer avec ça aussi, tu me le donnes après ?"</div>
+        <div class="ex-item">✅ "Ça m'énerve quand tu rentres dans ma chambre sans demander"</div>
+      </div>
+    </div>
+    <div class="explication-col">
+      <p class="col-titre" style="color: var(--c4);">Écouter</p>
+      <p class="col-question">Ai-je pris le temps d'écouter l'autre, ou j'ai démarré au quart de tour parce que mon émotion a pris le dessus ?</p>
+      <div class="examples-grid">
+        <div class="ex-item">Reformuler avant de répondre : "Donc toi tu voulais..."</div>
+        <div class="ex-item">Regarder l'autre, ne pas lui couper la parole</div>
+        <div class="ex-item">"J'ai pas compris ce que tu as dit"</div>
+      </div>
+    </div>
+    <div class="explication-col">
+      <p class="col-titre" style="color: var(--c2);">Émotion</p>
+      <p class="col-question">Qu'est-ce que je ressens et est-ce que je l'ai dit ?</p>
+      <div class="examples-grid">
+        <div class="ex-item">"Je suis énervé(e), j'ai besoin qu'on me laisse tranquille"</div>
+        <div class="ex-item">"Je me sens mis(e) à l'écart quand vous jouez sans moi"</div>
+        <div class="ex-item">"J'étais stressé(e) par mes devoirs, du coup j'ai explosé"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ligne 2 : Solution / Réparer -->
+  <div class="explication-ligne">
+    <div class="explication-col">
+      <p class="col-titre" style="color: var(--c3);">Solution</p>
+      <p class="col-question">On trouve un terrain d'entente ensemble.</p>
+      <div class="examples-grid">
+        <div class="ex-item">"On fait une fois chacun, demain c'est toi"</div>
+        <div class="ex-item">Le minuteur : chacun attend son tour</div>
+        <div class="ex-item">"Tu attends, je viens de le prendre, ensuite c'est à toi"</div>
+        <div class="ex-item">"Et si on faisait moitié-moitié cette fois ?"</div>
+      </div>
+    </div>
+    <div class="explication-col">
+      <p class="col-titre" style="color: var(--c5);">Réparer</p>
+      <p class="col-question">Comment on recolle les morceaux quand on a explosé ?</p>
+      <div class="examples-grid">
+        <div class="ex-item">Un mot d'excuse, un service rendu, un câlin, selon ce qui convient aux deux</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="tableau">
+    <p class="tableau-question">Est-ce que les disputes ont bien été gérées aujourd'hui ?</p>
+    <div class="gommettes-row">
+      <div class="gommette-cell"><div class="gommette"></div><span class="jour-label">Lu</span></div>
+      <div class="gommette-cell"><div class="gommette"></div><span class="jour-label">Ma</span></div>
+      <div class="gommette-cell"><div class="gommette"></div><span class="jour-label">Me</span></div>
+      <div class="gommette-cell"><div class="gommette"></div><span class="jour-label">Je</span></div>
+      <div class="gommette-cell"><div class="gommette"></div><span class="jour-label">Ve</span></div>
+    </div>
+    <p class="recompense">Vendredi, tu fais le point des coches et à eux la récompense : choix du film, crêpes party, des copains viennent jouer, choix de la sortie du weekend.</p>
+  </div>
+
+  <div class="regle-parent">
+    <p class="regle-parent-titre">La règle du parent</p>
+    <ul>
+      <li>Le parent guide, montre les étapes oubliées, clarifie ce qui aurait pu être fait différemment.</li>
+      <li>Il ne juge jamais, ne départage jamais, c'est le pire truc à faire. Il devient le méchant alors qu'à la base il n'avait rien à voir avec ça, et c'est le meilleur moyen pour créer de l'injustice, des "tu le préfères à moi" etc.</li>
+      <li>Si c'est trop chaud bouillant : l'adulte sépare les enfants, ils discutent ensuite tous ensemble.</li>
+      <li>L'adulte a le droit de dire : "Je vous laisse une dernière chance de trouver une solution, après j'enlève le jeu."</li>
+    </ul>
+  </div>
+
+  <p class="signature"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></p>
+
+</div>
+</body>
+</html>
