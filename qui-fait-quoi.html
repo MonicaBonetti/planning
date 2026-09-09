@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Qui fait quoi — monica-bonetti.ch</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#f5f0e8;display:flex;flex-direction:column;align-items:center;padding:20px;gap:16px}
+.no-print{display:flex;flex-direction:column;align-items:center;gap:6px}
+.btn-print{background:#cd764b;color:white;border:none;padding:10px 28px;border-radius:20px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(205,118,75,0.3)}
+.btn-print:hover{background:#b85c33}
+.hint{font-family:'Nunito',sans-serif;color:#aaa;font-size:9px;text-align:center}
+.page-scale-wrapper{position:relative;width:100%;max-width:793.7px;margin:0 auto}
+.page{position:absolute;top:0;left:0;width:793.7px;background:white;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.12);padding:9mm 10mm 8mm 10mm;display:flex;flex-direction:column;gap:5mm;transform-origin:top left}
+.titre-main{font-family:'Baloo 2',cursive;font-size:20pt;font-weight:800;line-height:1.1}
+.titre-noir{color:#3a3228}
+.titre-terra{color:#cd764b}
+.section-label{font-size:7.5pt;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.footer{text-align:center;font-size:7.5pt;color:#ccc;border-top:1px solid #eee;padding-top:5px;margin-top:auto}
+.footer a{color:#cd764b;text-decoration:none;font-weight:800}
+
+table.tbl{width:100%;border-collapse:separate;border-spacing:2px}
+table.tbl th{padding:6px 4px;font-family:'Baloo 2',cursive;font-size:8.5pt;font-weight:800;border-radius:7px;text-align:center}
+.th-blank{background:transparent;width:34px}
+.th-cren{background:transparent;width:38px}
+.th-p1{background:#f7e4da;color:#8a3d1f}
+.th-p2{background:#eadcf7;color:#6b3f8a}
+.th-k1{background:#dcf3f1;color:#1f6b64}
+.th-k2{background:#f7e8c9;color:#8a6110}
+.th-k3{background:#fbe0ea;color:#99295c}
+.kid-name{border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:8.5pt;font-weight:700;color:inherit;width:100%;outline:none;border-bottom:1px dashed currentColor;text-align:center;display:block}
+.kid-name::placeholder{opacity:0.5;font-size:7.5pt}
+
+table.tbl td{vertical-align:middle;padding:1.5px}
+.jour-lbl{padding:4px 3px!important;border-radius:7px;font-family:'Baloo 2',cursive;font-size:8pt;font-weight:800;color:#3a3228;background:#ffeecf;white-space:nowrap;text-align:center}
+.cren-lbl{font-size:6pt;font-weight:800;color:#aaa;text-align:center;text-transform:uppercase;letter-spacing:0.5px}
+.qfq-cell{height:26px;border-radius:6px;border:1.5px dashed #e3d9c8;background:#faf6f0;display:flex;align-items:center;justify-content:center;font-size:14pt;line-height:1;cursor:pointer;transition:background 0.12s,border-color 0.12s}
+.qfq-cell:hover{background:#f0e8d8;border-color:#cd764b}
+.qfq-cell.filled{border-style:solid;border-color:#f0e8da}
+.day-sep td{border-top:2px solid #e8ddd0}
+
+.biblio-wrap{background:#faf6f0;border:1.5px dashed #cd764b;border-radius:10px;padding:8px 10px}
+.biblio-title{font-size:7.5pt;font-weight:800;color:#cd764b;text-align:center;margin-bottom:6px}
+.bank-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+.bank-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:white;border:1.5px solid #f0e8da;border-radius:7px;padding:5px 7px;cursor:pointer;min-width:52px;user-select:none;transition:border-color 0.12s,background 0.12s}
+.bank-item:hover{border-color:#cd764b}
+.bank-item.selected{border-color:#cd764b;background:#ffeecf}
+.bank-item .e{font-size:16pt;line-height:1}
+.bank-item .lbl{font-size:5.5pt;color:#999;font-weight:700;text-align:center;line-height:1.2;max-width:60px}
+
+.footer{}
+@media print{
+  body{background:white;padding:0}
+  .no-print{display:none!important}
+  .page-scale-wrapper{position:static;width:100%;max-width:none;height:auto!important}
+  .page{position:static;width:100%;transform:none!important;box-shadow:none;border-radius:0;padding:8mm 10mm}
+  @page{size:A4 portrait;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <button class="btn-print" onclick="window.print()">&#127890; Imprimer</button>
+  <span class="hint">Chrome &#8594; Ctrl+P &#8594; A4 portrait &#8594; Marges : aucune</span>
+</div>
+
+<div class="page-scale-wrapper">
+<div class="page">
+
+  <div class="titre-main"><span class="titre-noir">Qui fait</span> <span class="titre-terra">quoi</span></div>
+
+  <div>
+    <div class="section-label">Une tête vide sur qui fait quoi, qui va où</div>
+    <table class="tbl" id="qfq-table">
+      <thead>
+        <tr>
+          <th class="th-blank"></th>
+          <th class="th-cren"></th>
+          <th class="th-p1"><input class="kid-name" placeholder="Parent" maxlength="12"></th>
+          <th class="th-p2"><input class="kid-name" placeholder="Parent" maxlength="12"></th>
+          <th class="th-k1"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+          <th class="th-k2"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+          <th class="th-k3"><input class="kid-name" placeholder="Prénom" maxlength="12"></th>
+        </tr>
+      </thead>
+      <tbody id="qfq-body"></tbody>
+    </table>
+  </div>
+
+  <div class="biblio-wrap">
+    <div class="biblio-title">Bibliothèque, clique sur l'activité, puis clique la case du bon créneau.</div>
+    <div class="bank-grid" id="qfq-bank"></div>
+  </div>
+
+  <div class="footer"><a href="https://monica-bonetti.ch">monica-bonetti.ch</a></div>
+
+</div>
+</div>
+
+<script>
+const JOURS=['LUN','MAR','MER','JEU','VEN'];
+const CRENEAUX=['Matin','Midi','Soir'];
+const ACTIVITES=[
+  {e:'\u{1F9D2}',l:"S'occupe des kids"},
+  {e:'\u{1F697}',l:'Récupère les kids'},
+  {e:'\u{1F373}',l:'Fait à manger'},
+  {e:'\u{1F3E0}',l:'Rentre manger'},
+  {e:'\u{1F6B8}',l:"Dépose à l'école"},
+  {e:'\u{1F4DA}',l:'Aide aux devoirs / Devoirs'},
+  {e:'\u{1F6C1}',l:'Douche / bain'},
+  {e:'\u{1F392}',l:'Prépare le sac du lendemain'},
+];
+
+const tbody=document.getElementById('qfq-body');
+JOURS.forEach(function(jour, ji){
+  CRENEAUX.forEach(function(cren, ci){
+    const tr=document.createElement('tr');
+    if(ci===0) tr.className='day-sep';
+    let html='';
+    if(ci===0){
+      html+='<td class="jour-lbl" rowspan="3">'+jour+'</td>';
+    }
+    html+='<td class="cren-lbl">'+cren+'</td>';
+    for(let p=0;p<5;p++){
+      html+='<td><div class="qfq-cell" data-jour="'+ji+'" data-cren="'+ci+'" data-p="'+p+'"></div></td>';
+    }
+    tr.innerHTML=html;
+    tbody.appendChild(tr);
+  });
+});
+
+let selected=null;
+
+const bank=document.getElementById('qfq-bank');
+ACTIVITES.forEach(function(item){
+  const chip=document.createElement('div');
+  chip.className='bank-item';
+  chip.innerHTML='<span class="e">'+item.e+'</span><span class="lbl">'+item.l+'</span>';
+  chip.addEventListener('click',function(){
+    if(selected===item){
+      selected=null;
+      chip.classList.remove('selected');
+    } else {
+      document.querySelectorAll('.bank-item').forEach(function(c){c.classList.remove('selected');});
+      selected=item;
+      chip.classList.add('selected');
+    }
+  });
+  bank.appendChild(chip);
+});
+
+document.querySelectorAll('.qfq-cell').forEach(function(cell){
+  cell.addEventListener('click',function(){
+    if(selected){
+      cell.textContent=selected.e;
+      cell.title=selected.l;
+      cell.classList.add('filled');
+      document.querySelectorAll('.bank-item').forEach(function(c){c.classList.remove('selected');});
+      selected=null;
+    } else if(cell.textContent){
+      cell.textContent='';
+      cell.title='';
+      cell.classList.remove('filled');
+    }
+  });
+});
+
+function fitPage(){
+  const wrapper=document.querySelector('.page-scale-wrapper');
+  const page=document.querySelector('.page');
+  const naturalHeight=page.offsetHeight;
+  const scale=Math.min(1, wrapper.clientWidth/793.7);
+  page.style.transform='scale('+scale+')';
+  wrapper.style.height=(naturalHeight*scale)+'px';
+}
+window.addEventListener('resize',fitPage);
+window.addEventListener('load',fitPage);
+setTimeout(fitPage,50);
+</script>
+</body>
+</html>
