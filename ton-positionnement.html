@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trouve ton cadre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500;1,600&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terracotta: #cd764b;
+    --teal: #49ada4;
+    --creme: #ffeecf;
+    --creme-clair: #faf6f0;
+    --or: #c88d25;
+    --dark: #4a2e1a;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--creme-clair);
+    font-family: 'Nunito', sans-serif;
+    color: var(--dark);
+  }
+
+  .topbar {
+    height: 14px;
+    background: var(--terracotta);
+    width: 100%;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 34px 32px 40px 32px;
+  }
+
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 25px;
+    color: var(--terracotta);
+    text-align: center;
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+  }
+
+  .subtitle {
+    font-size: 13.5px;
+    line-height: 1.55;
+    text-align: center;
+    margin: 0 auto 20px auto;
+    color: var(--dark);
+    max-width: 560px;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--or);
+    opacity: 0.35;
+    margin: 26px 0;
+  }
+
+  .item {
+    margin: 22px 0;
+  }
+
+  .item-label {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #9b6c48;
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+  }
+
+  .item-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 16.5px;
+    line-height: 1.4;
+    color: var(--dark);
+    margin: 0 0 8px 0;
+  }
+
+  .write-lines {
+    margin-top: 10px;
+  }
+
+  .write-lines .line {
+    border-bottom: 1px solid #d8c3a5;
+    height: 22px;
+  }
+
+  /* Grand titre de section "vie de tous les jours" */
+  .section-header {
+    background: var(--terracotta);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin: 32px 0 18px 0;
+    text-align: center;
+  }
+
+  .section-header .section-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 19px;
+    color: #fff;
+    margin: 0 0 4px 0;
+  }
+
+  .section-header .section-subtitle {
+    font-size: 12px;
+    color: var(--creme);
+    margin: 0;
+  }
+
+  /* Cartes moments du quotidien */
+  .moments-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .moment-card {
+    background: #fff;
+    border: 1.5px solid var(--teal);
+    border-radius: 12px;
+    padding: 18px 18px 14px 18px;
+  }
+
+  .moment-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .moment-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--teal);
+    margin: 0 0 10px 0;
+  }
+
+  .moment-card .item-text {
+    font-size: 14px;
+  }
+
+  .moment-card .write-lines .line {
+    height: 18px;
+  }
+
+  .closing-box {
+    background: var(--creme);
+    border-radius: 12px;
+    padding: 30px 34px;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .closing-box p {
+    font-size: 13.5px;
+    line-height: 1.7;
+    margin: 0 0 16px 0;
+    color: var(--dark);
+  }
+
+  .closing-box .highlight {
+    color: var(--terracotta);
+    font-weight: 700;
+  }
+
+  .mantra-box {
+    background: #fff;
+    border: 1.5px dashed var(--or);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 16px;
+  }
+
+  .mantra-box .line {
+    border-bottom: 1px solid #d8c3a5;
+    height: 26px;
+  }
+
+  .example-tag {
+    display: block;
+    font-style: italic;
+    font-size: 12px;
+    color: #9b6c48;
+    margin-top: 14px;
+  }
+
+  .task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+  }
+
+  .task-table th {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    color: var(--terracotta);
+    text-align: left;
+    padding: 6px 8px;
+    border-bottom: 2px solid var(--or);
+  }
+
+  .task-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #e6d7c2;
+    font-size: 13px;
+    height: 30px;
+  }
+
+  .task-table td:first-child {
+    font-weight: 700;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  .footer a {
+    color: var(--dark);
+    font-size: 12.5px;
+    text-decoration: none;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: var(--creme-clair); }
+    .page { padding: 24px 45px 30px 45px; }
+    .moments-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="page">
+
+  <p class="title">Trouve ton cadre, trouve tes mots</p>
+  <p class="subtitle">
+    Avant de fixer les tâches de ton kid, trouve ce qui est vraiment aligné avec toi.
+    Ce guide t'aide à mettre des mots sur tes valeurs, pour un cadre qui tient sur la durée — sans t'épuiser.
+  </p>
+
+  <hr class="divider">
+
+  <div class="item">
+    <p class="item-label">Étape 1 — Les vacances entre copines</p>
+    <p class="item-text">Tu pars 1 semaine avec des copines : qu'est-ce qui fait que ça se passe bien, et qu'en rentrant tu te dises "c'était génial" ?</p>
+    <div class="write-lines"><div class="line"></div><div class="line"></div></div>
+    <p class="item-text" style="margin-top:16px;">Et qu'est-ce qui aurait pu tout gâcher (partage pas équitable de qui paie quoi / des tâches / faire à manger / idées pas communes...) ?</p>
+    <div class="write-lines"><div class="line"></div><div class="line"></div></div>
+  </div>
+
+  <div class="section-header">
+    <p class="section-title">Dans la vie de tous les jours</p>
+    <p class="section-subtitle">Repère ce qui te fait tenir, et ce qui te fait craquer</p>
+  </div>
+
+  <div class="moments-grid">
+    <div class="moment-card">
+      <span class="moment-icon">🍽️</span>
+      <p class="moment-title">À table</p>
+      <p class="item-text">Qu'est-ce qui doit se passer pour que ça se passe bien ?</p>
+      <div class="write-lines"><div class="line"></div></div>
+      <p class="item-text" style="margin-top:10px;">Décris tout ce qui t'énerve.</p>
+      <div class="write-lines"><div class="line"></div></div>
+    </div>
+
+    <div class="moment-card">
+      <span class="moment-icon">🚪</span>
+      <p class="moment-title">En sortant de la maison</p>
+      <p class="item-text">Qu'est-ce qui doit se passer pour que ça se passe bien ?</p>
+      <div class="write-lines"><div class="line"></div></div>
+      <p class="item-text" style="margin-top:10px;">Décris tout ce qui t'énerve.</p>
+      <div class="write-lines"><div class="line"></div></div>
+    </div>
+
+    <div class="moment-card">
+      <span class="moment-icon">🎠</span>
+      <p class="moment-title">En sortie</p>
+      <p class="item-text">Qu'est-ce qui doit se passer pour que ça se passe bien ?</p>
+      <div class="write-lines"><div class="line"></div></div>
+      <p class="item-text" style="margin-top:10px;">Décris tout ce qui t'énerve.</p>
+      <div class="write-lines"><div class="line"></div></div>
+    </div>
+
+    <div class="moment-card">
+      <span class="moment-icon">🌙</span>
+      <p class="moment-title">Au coucher</p>
+      <p class="item-text">Qu'est-ce qui doit se passer pour que ça se passe bien ?</p>
+      <div class="write-lines"><div class="line"></div></div>
+      <p class="item-text" style="margin-top:10px;">Décris tout ce qui t'énerve.</p>
+      <div class="write-lines"><div class="line"></div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="item">
+    <p class="item-label">Étape 6 — Le mot commun</p>
+    <p class="item-text">Quel mot ou sentiment revient, pareil ou similaire, entre les vacances et ce qui se passe à la maison ?</p>
+    <div class="write-lines"><div class="line"></div></div>
+  </div>
+
+  <div class="item">
+    <p class="item-label">Étape 7 — Ta limite</p>
+    <p class="item-text">Combien de fois tu répètes avant de craquer ?</p>
+    <div class="write-lines"><div class="line"></div></div>
+    <p class="item-text" style="margin-top:16px;">Tu es d'accord de répéter — mais jusqu'où ? (3 avertissements, indéfiniment, tu ne sais pas trop, tu y vas au feeling / à la fatigue...)</p>
+    <div class="write-lines"><div class="line"></div></div>
+  </div>
+
+  <div class="item">
+    <p class="item-label">Étape 8 — La conséquence</p>
+    <p class="item-text">Qu'est-ce qui se passe quand ça dépasse cette limite ? (combien d'avertissements, quelle conséquence)</p>
+    <div class="write-lines"><div class="line"></div><div class="line"></div></div>
+  </div>
+
+  <div class="closing-box">
+    <p class="highlight" style="font-family:'Playfair Display', serif; font-style:italic; font-size:16px;">Étape 9 — Ton mantra</p>
+    <p>Assemble le mot commun + ta limite + la conséquence. C'est la phrase que tu pourras répéter, sans culpabiliser, parce qu'elle vient de toi.</p>
+    <div class="mantra-box">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <span class="example-tag">Ex. : "La participation est essentielle pour le bien vivre ensemble. Je suis d'accord de répéter, mais pas de m'épuiser en vain : à 3 avertissements, il y a une conséquence à assumer. Cette règle commence aujourd'hui, pour tout, dès qu'on doit répéter."</span>
+    </div>
+  </div>
+
+  <div class="item" style="margin-top:32px;">
+    <p class="item-label">Étape 10 — Tâches et règle fixe</p>
+    <p class="item-text">Maintenant que tu sais ce qui est important pour toi, adapte-le en tâches et en règle fixe à la maison. Les tâches doivent être réalistes selon l'âge de ton kid (à 4 ans, faire les courses c'est compliqué, mettre la table ça c'est possible !).</p>
+    <table class="task-table">
+      <tr>
+        <th>Âge</th>
+        <th>Tâche</th>
+        <th>Comment tu le dis</th>
+      </tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    <a href="https://monica-bonetti.ch">monica-bonetti.ch</a>
+  </div>
+
+</div>
+
+</body>
+</html>
